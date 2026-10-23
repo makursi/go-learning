@@ -1,16 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/makursi/go-learning/tools/scaffold/internal/scaffold"
 )
 
 func main() {
 	cwd, err := os.Getwd()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: 取当前目录：%v\n", err)
-		os.Exit(exitIO)
+		os.Stderr.WriteString("error: 取当前目录：" + err.Error() + "\n")
+		os.Exit(1) // 与 scaffold 的「写文件系统失败」同一个退出码
 	}
 
-	os.Exit(run(os.Args[1:], cwd, os.Stdout, os.Stderr))
+	os.Exit(scaffold.Run(os.Args[1:], cwd, os.Stdout, os.Stderr))
 }

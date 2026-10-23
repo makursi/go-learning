@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"os"
@@ -17,8 +17,8 @@ func TestRunsFromAnyDirectoryInsideRepo(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, sub, "lecture", "02-functions", "demo")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
 	rel := "src/lectures/02-functions/demo/main.go"
@@ -35,8 +35,8 @@ func TestRefusesOutsideRepo(t *testing.T) {
 
 	_, stderr, code := runCLI(t, outside, "lecture", "01-basics", "hello")
 
-	if code != exitUsage {
-		t.Fatalf("退出码 = %d，想要 %d", code, exitUsage)
+	if code != 2 {
+		t.Fatalf("退出码 = %d，想要 %d", code, 2)
 	}
 	if !strings.HasPrefix(stderr, "error:") {
 		t.Errorf("stderr 应以 error: 开头，得到 %q", stderr)

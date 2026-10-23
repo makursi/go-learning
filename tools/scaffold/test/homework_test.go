@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"go/format"
@@ -13,8 +13,8 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "homework", "01-basics", "fruit-count")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
 	rel := "src/homework/01-basics/fruit-count/main.go"
@@ -23,7 +23,8 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 	}
 
 	content := readFile(t, root, rel)
-	if content != mainGoTemplate {
+	const want = "package main\n\nfunc main() {\n}\n"
+	if content != want {
 		t.Errorf("作业骨架 = %q，想要与讲义同一份最小骨架", content)
 	}
 	if formatted, err := format.Source([]byte(content)); err != nil {
@@ -48,7 +49,7 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
 	root := fakeRepo(t)
 
-	if _, _, code := runCLI(t, root, "homework", "01-basics", "fruit-count"); code != exitOK {
+	if _, _, code := runCLI(t, root, "homework", "01-basics", "fruit-count"); code != 0 {
 		t.Fatalf("跑作业生成失败，退出码 = %d", code)
 	}
 
@@ -64,8 +65,8 @@ func TestTitleFlagRejectedForKindsThatDoNotUseIt(t *testing.T) {
 
 	_, stderr, code := runCLI(t, root, "lecture", "--title", "演示", "01-basics", "hello")
 
-	if code != exitUsage {
-		t.Fatalf("退出码 = %d，想要 %d", code, exitUsage)
+	if code != 2 {
+		t.Fatalf("退出码 = %d，想要 %d", code, 2)
 	}
 	if !strings.HasPrefix(stderr, "error:") {
 		t.Errorf("stderr 应以 error: 开头，得到 %q", stderr)

@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"os"
@@ -12,8 +12,8 @@ func TestDryRunPrintsPlanWithoutTouchingDisk(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "note", "--dry-run", "01-basics", "maps")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
 	rel := "src/notes/01-basics/maps.md"
@@ -40,8 +40,8 @@ func TestDryRunSkipsExistingTargetWithoutFailing(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "note", "--dry-run", "01-basics", "maps")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 	if !strings.Contains(stdout, "skip "+rel) {
 		t.Errorf("stdout 应报告 skip %s，得到 %q", rel, stdout)

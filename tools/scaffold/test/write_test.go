@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"os"
@@ -23,8 +23,8 @@ func TestExistingFileIsSkippedAndLeftAlone(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "lecture", "01-basics", "hello")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 	if !strings.Contains(stdout, "skip "+rel) {
 		t.Errorf("stdout 应报告 skip %s，得到 %q", rel, stdout)
@@ -56,8 +56,8 @@ func TestWriteFailureExitsOne(t *testing.T) {
 
 	_, stderr, code := runCLI(t, root, "lecture", "01-basics", "hello")
 
-	if code != exitIO {
-		t.Fatalf("退出码 = %d，想要 %d", code, exitIO)
+	if code != 1 {
+		t.Fatalf("退出码 = %d，想要 %d", code, 1)
 	}
 	if !strings.HasPrefix(stderr, "error:") {
 		t.Errorf("stderr 应以 error: 开头，得到 %q", stderr)

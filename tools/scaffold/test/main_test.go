@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"bytes"
@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/makursi/go-learning/tools/scaffold/internal/scaffold"
 )
 
 // fakeRepo 造一个最小的假仓库根：只需要一份 module 路径正确的 go.mod。
@@ -17,7 +19,7 @@ func fakeRepo(t *testing.T) string {
 	t.Helper()
 
 	root := t.TempDir()
-	gomod := "module " + modulePath + "\n\ngo 1.27.1\n"
+	gomod := "module " + "github.com/makursi/go-learning" + "\n\ngo 1.27.1\n"
 	if err := os.WriteFile(filepath.Join(root, "go.mod"), []byte(gomod), 0o644); err != nil {
 		t.Fatalf("写 go.mod：%v", err)
 	}
@@ -30,7 +32,7 @@ func runCLI(t *testing.T, cwd string, args ...string) (stdout, stderr string, co
 	t.Helper()
 
 	var out, errOut bytes.Buffer
-	code = run(args, cwd, &out, &errOut)
+	code = scaffold.Run(args, cwd, &out, &errOut)
 
 	return out.String(), errOut.String(), code
 }

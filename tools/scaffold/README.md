@@ -23,6 +23,15 @@ flag 必须写在位置参数之前——标准库 `flag` 在第一个位置参�
 - 只建该种类用到的那棵树，不会顺手在另外两棵树里造空目录。
 - 笔记只有一个一级标题和一个空行；讲义与作业是最小的 `package main` + `main()`。作业目录不放 `README.md`，题面记在对应笔记里。
 
+## 代码结构
+
+```text
+tools/scaffold/
+├── main.go              # 入口：取 cwd，调 Run，透传退出码
+├── internal/scaffold/   # 核心：种类表、规划、执行、校验、编号、模板
+└── test/                # 外部测试包，只经 Run 进入
+```
+
 ## 选项
 
 - `--dry-run` 只打印计划，不落盘。输出的 `create` / `skip` 行与计数都是计划值，与真实运行逐字一致。
@@ -54,4 +63,4 @@ go install ./tools/scaffold
 
 ## 加一种内容种类
 
-`kinds.go` 的表里加一行 + `template.go` 里加一个内容生成器，判定逻辑不用动。`src/projects/` 将来要用时照此加。
+`internal/scaffold/kinds.go` 的表里加一行 + `template.go` 里加一个内容生成器，判定逻辑不用动。`src/projects/` 将来要用时照此加。

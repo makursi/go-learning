@@ -1,4 +1,4 @@
-package main
+package scaffold
 
 import (
 	"fmt"
@@ -7,13 +7,13 @@ import (
 	"strconv"
 )
 
-// nextTopicNumber 扫笔记区的主题目录，给出「下一个可用编号」。
-// 取现有最大编号 +1，而不是补空洞：编号是主题的身份，不该被回收。
-func nextTopicNumber(root string) (string, bool) {
+// topicNumberHint 给主题编号的用法错误补一句可执行的提示。
+// 编号只有两位：用满 99 之后不再给数字，否则提示值自己就过不了校验。
+func topicNumberHint(root string) (string, bool) {
 	entries, err := os.ReadDir(filepath.Join(root, "src", "notes"))
 	if err != nil {
 		if os.IsNotExist(err) {
-			return "01", true
+			return "下一个可用编号是 01", true
 		}
 
 		return "", false
@@ -29,7 +29,11 @@ func nextTopicNumber(root string) (string, bool) {
 		}
 	}
 
-	return fmt.Sprintf("%02d", maxNumber+1), true
+	if maxNumber >= 99 {
+		return "两位编号已用尽，新主题需要先放宽编号规则", true
+	}
+
+	return fmt.Sprintf("下一个可用编号是 %02d", maxNumber+1), true
 }
 
 // topicNumber 取主题名开头的两位编号；不是「两位数字 + 连字符」就返回 false。
