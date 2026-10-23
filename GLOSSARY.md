@@ -44,6 +44,16 @@ _Avoid_: 语法高亮插件
 本仓库根目录 `C:\Users\29634\Desktop\W\playgrounds\go-learning`。与 Go 的 `go.work` 工作区是两个无关概念。
 _Avoid_: GOPATH
 
+### 仓库分区
+
+**Content（内容区）**：
+`src/` 下被学习的全部内容——笔记、讲义、作业、项目。与 `tools/` 相对：内容区是「我在学的东西」，工具区是「服务于学习的程序」。`src/` 这个名字不指向 GOPATH，只是这个分区的容器。
+_Avoid_: 源码、项目目录
+
+**Tool（工具区）**：
+`tools/` 下服务于学习仓库自身的程序，不是学习内容。目前只有一个占位文件，为将来自动创建目录的 CLI 预留。
+_Avoid_: 脚本、辅助代码
+
 ### 内容分类
 
 **Topic（主题）**：
@@ -51,17 +61,17 @@ _Avoid_: GOPATH
 _Avoid_: 章节、单元
 
 **Note（笔记）**：
-`notes/` 下按 Topic 分目录的 Markdown，记录知识点本身。是复习入口，不承载完整可执行代码。
+`src/notes/` 下按 Topic 分目录的 Markdown，记录知识点本身。是复习入口，不承载完整可执行代码。
 _Avoid_: 文档、教程
 
 **Lecture（讲义）**：
-`lectures/` 下跟课敲的示例代码，一个示例一个目录。演示某个概念的最小可运行片段，不是作业答案。
+`src/lectures/` 下跟课敲的示例代码，一个示例一个目录。演示某个概念的最小可运行片段，不是作业答案。
 _Avoid_: 课件、demo
 
 **Homework（作业）**：
-`homework/` 下独立完成的题目，一题一目录。与 Lecture 的区别是「自己写的」而非「跟着敲的」，题目说明记在对应 Notes 里，不塞进作业目录。
+`src/homework/` 下独立完成的题目，一题一目录。与 Lecture 的区别是「自己写的」而非「跟着敲的」，题目说明记在对应 Notes 里，不塞进作业目录。
 _Avoid_: 练习、exercise
 
 **Project（项目）**：
-`projects/` 下的综合练习，有生命周期、可以长成独立仓。与 Lecture / Homework 的区别是它要求测试，而那两者不配 `_test.go`。
+`src/projects/` 下的综合练习，有生命周期、可以长成独立仓，学到需要时再建。与 Lecture / Homework 的区别是它要求测试，而那两者不配 `_test.go`。
 _Avoid_: 大作业、课设
