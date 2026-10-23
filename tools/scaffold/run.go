@@ -44,20 +44,24 @@ func run(args []string, cwd string, stdout, stderr io.Writer) int {
 
 	topic, name := rest[0], rest[1]
 
-	if err := validateTopic(topic); err != nil {
+	root, err := findRoot(cwd)
+	if err != nil {
 		fmt.Fprintf(stderr, "error: %v\n", err)
+
+		return exitUsage
+	}
+
+	if err := validateTopic(topic); err != nil {
+		if next, ok := nextTopicNumber(root); ok {
+			fmt.Fprintf(stderr, "error: %v（下一个可用编号是 %s）\n", err, next)
+		} else {
+			fmt.Fprintf(stderr, "error: %v\n", err)
+		}
 
 		return exitUsage
 	}
 
 	if err := validateName(name); err != nil {
-		fmt.Fprintf(stderr, "error: %v\n", err)
-
-		return exitUsage
-	}
-
-	root, err := findRoot(cwd)
-	if err != nil {
 		fmt.Fprintf(stderr, "error: %v\n", err)
 
 		return exitUsage
