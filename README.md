@@ -73,6 +73,46 @@
 - [Traefik](https://doc.traefik.io/traefik/) — 面向容器的反向代理与网关
 - [CNCF Landscape](https://landscape.cncf.io/) — 云原生全景图，找项目定位用
 
+### 生态 · 用 Go 写的知名项目
+
+- [containerd](https://containerd.io/docs/) — 容器运行时，Docker 底层就是它
+- [Podman](https://podman.io/docs) — 无守护进程的容器引擎
+- [CRI-O](https://cri-o.io/) — 专为 Kubernetes 的容器运行时
+- [k3s](https://docs.k3s.io/) — 单二进制 Kubernetes
+- [kind](https://kind.sigs.k8s.io/) — 用容器跑 K8s 集群，本地测试用
+- [minikube](https://minikube.sigs.k8s.io/docs/) — 本地单机 K8s
+- [Kustomize](https://kustomize.io/) — 不写模板的 K8s 配置层叠
+- [Argo CD](https://argo-cd.readthedocs.io/) — GitOps 持续部署
+- [Flux](https://fluxcd.io/flux/) — 另一套 GitOps，与 Argo CD 同代
+- [Tekton](https://tekton.dev/docs/) — 用 CRD 描述 CI/CD 流水线
+- [Harbor](https://goharbor.io/docs/) — 企业级镜像仓库
+- [Istio](https://istio.io/latest/docs/) — 服务网格，控制面是 Go，数据面是 Envoy（C++）
+- [Dapr](https://docs.dapr.io/) — 分布式应用运行时，把状态、发布订阅做成 sidecar
+- [Crossplane](https://docs.crossplane.io/) — 把云资源当成 K8s 对象管理
+- [Consul](https://developer.hashicorp.com/consul/docs) — 服务发现与配置
+- [Vault](https://developer.hashicorp.com/vault/docs) — 密钥管理
+- [Nomad](https://developer.hashicorp.com/nomad/docs) — 调度器，比 K8s 轻
+- [Terraform](https://developer.hashicorp.com/terraform/docs) — 基础设施即代码
+- [Packer](https://developer.hashicorp.com/packer/docs) — 镜像构建
+- [TiDB](https://docs.pingcap.com/tidb/stable) — 分布式 SQL 数据库，TiDB 层是 Go（TiKV 是 Rust）
+- [CockroachDB](https://www.cockroachlabs.com/docs/) — 分布式 SQL，全 Go
+- [Vitess](https://vitess.io/docs/) — MySQL 分库分表中间件，YouTube 出身
+- [MinIO](https://min.io/docs/minio/linux/index.html) — S3 兼容对象存储
+- [restic](https://restic.readthedocs.io/) — 去重加密备份
+- [Prometheus](https://prometheus.io/docs/) — 监控系统本体，不只是客户端库
+- [Jaeger](https://www.jaegertracing.io/docs/) — 链路追踪
+- [Loki](https://grafana.com/docs/loki/latest/) — 日志聚合，只索引标签
+- [Grafana](https://grafana.com/docs/grafana/latest/) — 后端是 Go，前端是 TypeScript
+- [VictoriaMetrics](https://docs.victoriametrics.com/) — 时序数据库，Prometheus 的替代
+- [k6](https://grafana.com/docs/k6/latest/) — 压测工具，脚本用 JS，引擎用 Go
+- [Gitea](https://docs.gitea.com/) — 自建 Git 服务
+- [Hugo](https://gohugo.io/documentation/) — 静态站点生成器，`go-docs.pages.dev` 就是它生成的
+- [Syncthing](https://docs.syncthing.net/) — 点对点文件同步
+- [rclone](https://rclone.org/docs/) — 各家云存储的统一命令行
+- [frp](https://gofrp.org/en/docs/) — 内网穿透
+- [Temporal](https://docs.temporal.io/) — 持久化工作流引擎
+- [Geth](https://geth.ethereum.org/docs) — 以太坊官方客户端
+
 ### 生态 · 工具链
 
 - [gopls](https://go.dev/gopls) — 官方语言服务器，编辑器的补全与跳转全靠它
