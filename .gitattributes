@@ -1,0 +1,3 @@
+# core.autocrlf=true 的机器上 checkout 会把源码换成 CRLF，那样 gofmt -l 会误报。
+# Go 源码在磁盘上统一 LF。
+*.go text eol=lf

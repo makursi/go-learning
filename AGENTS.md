@@ -31,6 +31,20 @@ Go 语言学习仓库：学习笔记、讲义代码、课后作业三类内容�
 
 本仓**不建** `CONTEXT.md`，以此覆盖 `W/AGENTS.md` 对域文档入口的默认指向。
 
+## Agent skills
+
+### Issue tracker
+
+Issue 与 spec 都记在 `makursi/go-learning` 的 GitHub Issues，一律用 `gh` CLI 操作。见 `docs/agents/issue-tracker.md`。
+
+### Triage labels
+
+五个 triage 角色与同名标签 1:1 对应；`ready-for-agent` 表示 spec 已定、可直接实现。见 `docs/agents/triage-labels.md`。
+
+### Domain docs
+
+单上下文：根目录 `GLOSSARY.md` + `docs/adr/`（另见 `docs/agents/design-notes.md`）。见 `docs/agents/domain.md`。
+
 ## Git
 
 远端 `origin` = `github.com/makursi/go-learning`，默认分支 `main`。
