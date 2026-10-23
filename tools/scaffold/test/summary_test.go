@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"strings"
@@ -9,7 +9,7 @@ func TestSummaryReportsCreatedThenSkipped(t *testing.T) {
 	root := fakeRepo(t)
 
 	first, stderr, code := runCLI(t, root, "note", "01-basics", "maps")
-	if code != exitOK {
+	if code != 0 {
 		t.Fatalf("第一次退出码 = %d；stderr = %q", code, stderr)
 	}
 	if !strings.Contains(first, "1 created, 0 skipped") {
@@ -17,7 +17,7 @@ func TestSummaryReportsCreatedThenSkipped(t *testing.T) {
 	}
 
 	second, stderr, code := runCLI(t, root, "note", "01-basics", "maps")
-	if code != exitOK {
+	if code != 0 {
 		t.Fatalf("第二次退出码 = %d；stderr = %q", code, stderr)
 	}
 	if !strings.Contains(second, "0 created, 1 skipped") {
@@ -30,7 +30,7 @@ func TestDryRunSummaryCountsThePlannedAction(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "homework", "--dry-run", "01-basics", "fruit-count")
 
-	if code != exitOK {
+	if code != 0 {
 		t.Fatalf("退出码 = %d；stderr = %q", code, stderr)
 	}
 	if !strings.Contains(stdout, "1 created, 0 skipped") {

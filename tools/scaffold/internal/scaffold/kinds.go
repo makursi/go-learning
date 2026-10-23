@@ -1,4 +1,4 @@
-package main
+package scaffold
 
 import "path"
 
@@ -13,8 +13,8 @@ type kind struct {
 	dirEntry string
 	// fileExt 非空时条目是主题目录下的单个文件，扩展名取自这里。
 	fileExt string
-	// content 生成条目内容：name 是命令行给的名字，title 是 --title 的取值。
-	content func(name, title string) string
+	// content 生成条目内容，入参是已经定好的标题（缺省即条目名）。
+	content func(title string) string
 	// titled 表示这种种类接受 --title。
 	titled bool
 }

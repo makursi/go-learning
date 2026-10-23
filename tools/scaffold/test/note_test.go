@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"os"
@@ -12,8 +12,8 @@ func TestNoteDefaultsHeadingToName(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "note", "01-basics", "maps")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
 	rel := "src/notes/01-basics/maps.md"
@@ -32,8 +32,8 @@ func TestNoteTitleFlagBecomesHeading(t *testing.T) {
 
 	stdout, stderr, code := runCLI(t, root, "note", "--title", "映射（Maps）", "01-basics", "maps")
 
-	if code != exitOK {
-		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitOK, stderr)
+	if code != 0 {
+		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
 	rel := "src/notes/01-basics/maps.md"

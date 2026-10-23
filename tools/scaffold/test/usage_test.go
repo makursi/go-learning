@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"strings"
@@ -22,8 +22,8 @@ func TestUsageErrors(t *testing.T) {
 
 			_, stderr, code := runCLI(t, root, tc.args...)
 
-			if code != exitUsage {
-				t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitUsage, stderr)
+			if code != 2 {
+				t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 2, stderr)
 			}
 			if !strings.HasPrefix(stderr, "error:") {
 				t.Errorf("stderr 应以 error: 开头，得到 %q", stderr)

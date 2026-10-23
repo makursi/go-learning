@@ -13,6 +13,7 @@ Go 语言学习仓库：学习笔记、讲义代码、课后作业三类内容�
 | `src/projects/` | 综合练习项目（学到需要时再建） | 可含测试 |
 | `tools/` | **工具区**：服务于学习本身的程序 | 独立 `package main` |
 | `docs/` | 设计推导与决策记录 | Markdown |
+| `docs/specs/` | 已发布 spec 的仓库内快照，以 issue 为准 | Markdown |
 
 **`src/` 是刻意保留的，不要拍平。** 它把「我在学的东西」（`src/`）和「服务于学习的工具、文档、仓库配置」（`tools/` `docs/` 及根文件）分成两个区。这一点不符合 Go 的一般习惯——`src/` 在 GOPATH 时代专指 `$GOPATH/src/<import-path>`——所以当初讨论时被建议去掉。保留是用户的决定，理由是可维护性：内容与工具混在根级会分不清谁属于谁。取舍全过程记在 `docs/agents/design-notes.md`。
 
@@ -35,7 +36,7 @@ Go 语言学习仓库：学习笔记、讲义代码、课后作业三类内容�
 
 ### Issue tracker
 
-Issue 与 spec 都记在 `makursi/go-learning` 的 GitHub Issues，一律用 `gh` CLI 操作。见 `docs/agents/issue-tracker.md`。
+Issue 与 spec 发布在 `makursi/go-learning` 的 GitHub Issues，一律用 `gh` CLI 操作；仓库内 `docs/specs/` 留一份快照，冲突时以 issue 为准。见 `docs/agents/issue-tracker.md`。
 
 ### Triage labels
 

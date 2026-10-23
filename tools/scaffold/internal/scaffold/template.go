@@ -1,4 +1,4 @@
-package main
+package scaffold
 
 // 退出码是工具的对外契约，脚本可能依赖它们，所以固定在这里。
 const (
@@ -12,16 +12,13 @@ const (
 const mainGoTemplate = "package main\n\nfunc main() {\n}\n"
 
 // noteContent 生成笔记骨架：只有一个一级标题和一个空行。
-// 不预置「要点」「TODO」这类段落——写不出来的时候不该被逼着填。
-func noteContent(name, title string) string {
-	if title == "" {
-		title = name
-	}
-
+// 标题的缺省值由调用方先定好；这里不预置「要点」「TODO」这类段落，
+// 写不出来的时候不该被逼着填。
+func noteContent(title string) string {
 	return "# " + title + "\n\n"
 }
 
 // goContent 是讲义与作业共用的内容生成器；--title 对它们没有意义。
-func goContent(_, _ string) string {
+func goContent(string) string {
 	return mainGoTemplate
 }

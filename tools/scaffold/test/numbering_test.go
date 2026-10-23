@@ -1,4 +1,4 @@
-package main
+package scaffoldtest
 
 import (
 	"os"
@@ -29,8 +29,8 @@ func TestTopicErrorSuggestsNextNumber(t *testing.T) {
 
 			_, stderr, code := runCLI(t, root, "note", "functions", "maps")
 
-			if code != exitUsage {
-				t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, exitUsage, stderr)
+			if code != 2 {
+				t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 2, stderr)
 			}
 			if !strings.Contains(stderr, "下一个可用编号") {
 				t.Errorf("错误信息应给出下一个可用编号，得到 %q", stderr)
@@ -42,13 +42,32 @@ func TestTopicErrorSuggestsNextNumber(t *testing.T) {
 	}
 }
 
+func TestTopicHintWhenTwoDigitNumbersRunOut(t *testing.T) {
+	root := fakeRepo(t)
+	if err := os.MkdirAll(filepath.Join(root, "src", "notes", "99-last"), 0o755); err != nil {
+		t.Fatalf("造 99 号主题：%v", err)
+	}
+
+	_, stderr, code := runCLI(t, root, "note", "functions", "maps")
+
+	if code != 2 {
+		t.Fatalf("退出码 = %d，想要 %d", code, 2)
+	}
+	if strings.Contains(stderr, "100") {
+		t.Errorf("不该提示 100——它过不了两位编号校验，得到 %q", stderr)
+	}
+	if !strings.Contains(stderr, "已用尽") {
+		t.Errorf("应说明两位编号已用尽，得到 %q", stderr)
+	}
+}
+
 func TestArgCountErrorNamesExpectedArgs(t *testing.T) {
 	root := fakeRepo(t)
 
 	_, stderr, code := runCLI(t, root, "lecture", "01-basics")
 
-	if code != exitUsage {
-		t.Fatalf("退出码 = %d，想要 %d", code, exitUsage)
+	if code != 2 {
+		t.Fatalf("退出码 = %d，想要 %d", code, 2)
 	}
 	if !strings.Contains(stderr, "<topic>") || !strings.Contains(stderr, "<name>") {
 		t.Errorf("错误信息应点出期望的参数，得到 %q", stderr)
