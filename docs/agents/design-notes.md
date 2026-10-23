@@ -62,7 +62,9 @@
 
 学习期的作业答案是一次性的，写测试等于给草稿纸配档案柜；只有 `src/projects/` 里的综合项目要求测试。
 
-**空模块例外**：还没有任何 Go 包时 `go vet ./...` 会以 `no packages to vet` 退出 1。这不是失败，已写进 `AGENTS.md`。
+**空模块例外（已失效）**：还没有任何 Go 包时 `go vet ./...` 会以 `no packages to vet` 退出 1。这条在 `tools/scaffold` 落地后不再适用，已从 `AGENTS.md` 删除；留在这里是为了解释早期提交为何看起来「门禁没过」。
+
+工具区的程序与 `src/projects/` 一样要配测试，作业仍不配。
 
 ### 编辑器
 
@@ -72,7 +74,7 @@
 
 ### 空目录与占位
 
-顶层 `src/notes/` `src/lectures/` `src/homework/` 保留为空目录（git 不跟踪，只在本地存在）。`tools/` 因为空目录 clone 后会消失，放了一个 `tools/README.md` 占位，说明它预留给什么。
+顶层 `src/notes/` `src/lectures/` `src/homework/` 保留为空目录（git 不跟踪，只在本地存在）。`tools/` 需要一个常驻文件锚住目录，于是有了 `tools/README.md`：第二轮之后它从占位变成了工具区索引，指向 `tools/scaffold/`。
 
 ### Git 流程（保留 PR）
 
