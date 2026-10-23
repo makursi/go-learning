@@ -31,10 +31,10 @@ func (k kind) relPath(topic, name string) string {
 // usageLine 是这种种类在出错时给出的用法提示。
 func (k kind) usageLine() string {
 	if k.titled {
-		return "scaffold " + k.name + " [--title <标题>] <topic> <name>"
+		return "scaffold " + k.name + " [--dry-run] [--title <标题>] <topic> <name>"
 	}
 
-	return "scaffold " + k.name + " <topic> <name>"
+	return "scaffold " + k.name + " [--dry-run] <topic> <name>"
 }
 
 var kinds = []kind{
