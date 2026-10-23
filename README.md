@@ -56,6 +56,23 @@
 - [testify](https://github.com/stretchr/testify) — 断言与 mock
 - [wire](https://github.com/google/wire) — 编译期依赖注入
 
+### 生态 · 云原生与基础设施
+
+- [Docker](https://docs.docker.com/) — 容器与镜像构建，`Dockerfile` 与 `docker run` 的权威手册
+- [Kubernetes](https://kubernetes.io/docs/home/) — 容器编排，用 Go 写的最大的开源系统之一
+- [client-go](https://github.com/kubernetes/client-go) — 从 Go 里操作 K8s 的官方客户端，写 operator 的起点
+- [Kubebuilder](https://book.kubebuilder.io/) — 用 Go 写自定义资源与 controller 的教程式手册
+- [Helm](https://helm.sh/docs/) — K8s 包管理，本身用 Go 写
+- [gRPC-Go](https://grpc.io/docs/languages/go/) — Go 的 gRPC 官方实现与入门
+- [Protocol Buffers](https://protobuf.dev/) — gRPC 的序列化格式与 `.proto` 语言指南
+- [Prometheus client_golang](https://github.com/prometheus/client_golang) — 在 Go 服务里暴露监控指标
+- [OpenTelemetry Go](https://opentelemetry.io/docs/languages/go/) — 链路追踪与指标的统一埋点
+- [etcd](https://etcd.io/docs/) — 分布式键值存储，Go 写的，读一致性实现的样本
+- [NATS](https://docs.nats.io/) — 轻量消息系统，Go 写的
+- [Caddy](https://caddyserver.com/docs/) — 自动 HTTPS 的反向代理，Go 写的
+- [Traefik](https://doc.traefik.io/traefik/) — 面向容器的反向代理与网关
+- [CNCF Landscape](https://landscape.cncf.io/) — 云原生全景图，找项目定位用
+
 ### 生态 · 工具链
 
 - [gopls](https://go.dev/gopls) — 官方语言服务器，编辑器的补全与跳转全靠它
