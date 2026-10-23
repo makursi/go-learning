@@ -128,10 +128,12 @@
 **命令面**：
 
 ```sh
-scaffold note     03-functions maps  --title "映射（Maps）"
+scaffold note     --title "映射（Maps）" 03-functions maps
 scaffold lecture  03-functions maps
 scaffold homework 03-functions fruit-count
 ```
+
+flag 必须在位置参数之前。这是标准库 `flag` 的语义，也是「不写自己的参数解析器、不为三条命令引 cobra」的直接代价：`note 03-functions maps --title x` 会在第一个位置参数处停止解析，`--title` 直接丢掉。所以统一成 flag 在前，用法提示也照此书写。
 
 每个种类一个独立的 `flag.FlagSet`，未知 flag 由标准库报错，不手写校验。不做 `topic` 种类（空目录 git 不跟踪，单边模型下主题目录是副作用，建出来立刻不可见）。暂不预留 `project` 种类（`src/projects/` 还不存在，加它是纯增量）。
 
