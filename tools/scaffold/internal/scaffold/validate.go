@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	// 主题必须带两位编号：编号把笔记、讲义、作业三边对齐起来。
+	// 主题必须带两位编号：编号把笔记与作业对齐起来。
 	topicPattern = regexp.MustCompile(`^[0-9]{2}-[a-z0-9]+(-[a-z0-9]+)*$`)
 	// 名字是路径的一段，必须是英文小写 slug。
 	slugPattern = regexp.MustCompile(`^[a-z0-9]+(-[a-z0-9]+)*$`)

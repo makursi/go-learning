@@ -1,7 +1,10 @@
 package scaffoldtest
 
 import (
+	"bytes"
 	"go/format"
+	"go/parser"
+	"go/token"
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,6 +19,9 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 	if code != 0 {
 		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
+	if stderr != "" {
+		t.Errorf("stderr 应为空，得到 %q", stderr)
+	}
 
 	rel := "src/homework/01-basics/fruit-count/main.go"
 	if !strings.Contains(stdout, "create "+rel) {
@@ -25,12 +31,26 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 	content := readFile(t, root, rel)
 	const want = "package main\n\nfunc main() {\n}\n"
 	if content != want {
-		t.Errorf("作业骨架 = %q，想要与讲义同一份最小骨架", content)
+		t.Errorf("作业骨架 = %q，想要最小可运行骨架", content)
 	}
-	if formatted, err := format.Source([]byte(content)); err != nil {
-		t.Errorf("作业骨架不是合法 Go：%v", err)
-	} else if string(formatted) != content {
+
+	formatted, err := format.Source([]byte(content))
+	if err != nil {
+		t.Fatalf("作业骨架不是合法 Go：%v\n%s", err, content)
+	}
+	if !bytes.Equal(formatted, []byte(content)) {
 		t.Errorf("作业骨架未经 gofmt：\n%s", content)
+	}
+
+	file, err := parser.ParseFile(token.NewFileSet(), rel, []byte(content), 0)
+	if err != nil {
+		t.Fatalf("解析作业骨架：%v", err)
+	}
+	if file.Name.Name != "main" {
+		t.Errorf("包名 = %q，想要 main", file.Name.Name)
+	}
+	if !hasMainFunc(file) {
+		t.Errorf("作业骨架里没有 func main()：\n%s", content)
 	}
 
 	entries, err := os.ReadDir(filepath.Join(root, "src", "homework", "01-basics", "fruit-count"))
@@ -47,23 +67,36 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 }
 
 func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
-	root := fakeRepo(t)
-
-	if _, _, code := runCLI(t, root, "homework", "01-basics", "fruit-count"); code != 0 {
-		t.Fatalf("跑作业生成失败，退出码 = %d", code)
+	cases := []struct {
+		desc  string
+		args  []string
+		trees []string
+	}{
+		{"作业不碰笔记区", []string{"homework", "01-basics", "fruit-count"}, []string{"src/notes"}},
+		{"笔记不碰作业区", []string{"note", "01-basics", "maps"}, []string{"src/homework"}},
 	}
 
-	for _, tree := range []string{"src/notes", "src/lectures"} {
-		if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(tree))); !os.IsNotExist(err) {
-			t.Errorf("%s 不该被作业生成建出来", tree)
-		}
+	for _, tc := range cases {
+		t.Run(tc.desc, func(t *testing.T) {
+			root := fakeRepo(t)
+
+			if _, _, code := runCLI(t, root, tc.args...); code != 0 {
+				t.Fatalf("%s 生成失败，退出码 = %d", tc.args[0], code)
+			}
+
+			for _, tree := range tc.trees {
+				if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(tree))); !os.IsNotExist(err) {
+					t.Errorf("%s 不该被 %s 建出来", tree, tc.args[0])
+				}
+			}
+		})
 	}
 }
 
 func TestTitleFlagRejectedForKindsThatDoNotUseIt(t *testing.T) {
 	root := fakeRepo(t)
 
-	_, stderr, code := runCLI(t, root, "lecture", "--title", "演示", "01-basics", "hello")
+	_, stderr, code := runCLI(t, root, "homework", "--title", "演示", "01-basics", "hello")
 
 	if code != 2 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 2)

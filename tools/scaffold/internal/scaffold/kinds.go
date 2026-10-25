@@ -46,12 +46,6 @@ var kinds = []kind{
 		titled:  true,
 	},
 	{
-		name:     "lecture",
-		root:     "src/lectures",
-		dirEntry: "main.go",
-		content:  goContent,
-	},
-	{
 		name:     "homework",
 		root:     "src/homework",
 		dirEntry: "main.go",

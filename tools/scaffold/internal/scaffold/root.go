@@ -10,7 +10,7 @@ import (
 const modulePath = "github.com/makursi/go-learning"
 
 // findRoot 从工作目录向上找本仓的根：go.mod 的 module 必须是 modulePath。
-// 这样在 src/lectures/... 里也能直接敲命令，而不必先 cd 回根目录。
+// 这样在 src/homework/... 里也能直接敲命令，而不必先 cd 回根目录。
 func findRoot(cwd string) (string, error) {
 	dir := cwd
 	for {

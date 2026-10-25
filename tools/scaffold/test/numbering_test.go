@@ -64,7 +64,7 @@ func TestTopicHintWhenTwoDigitNumbersRunOut(t *testing.T) {
 func TestArgCountErrorNamesExpectedArgs(t *testing.T) {
 	root := fakeRepo(t)
 
-	_, stderr, code := runCLI(t, root, "lecture", "01-basics")
+	_, stderr, code := runCLI(t, root, "homework", "01-basics")
 
 	if code != 2 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 2)

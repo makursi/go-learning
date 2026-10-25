@@ -11,9 +11,10 @@ func TestUsageErrors(t *testing.T) {
 		args []string
 	}{
 		{"没有参数", nil},
-		{"只有种类", []string{"lecture"}},
-		{"缺名字", []string{"lecture", "01-basics"}},
+		{"只有种类", []string{"homework"}},
+		{"缺名字", []string{"homework", "01-basics"}},
 		{"未知种类", []string{"topic", "01-basics", "hello"}},
+		{"讲义已被移除", []string{"lecture", "01-basics", "hello"}},
 	}
 
 	for _, tc := range cases {
