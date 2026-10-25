@@ -12,7 +12,7 @@ const handwritten = "package main\n\n// 手写的内容，不该被覆盖\nfunc 
 func TestExistingFileIsSkippedAndLeftAlone(t *testing.T) {
 	root := fakeRepo(t)
 
-	rel := "src/lectures/01-basics/hello/main.go"
+	rel := "src/homework/01-basics/hello/main.go"
 	abs := filepath.Join(root, filepath.FromSlash(rel))
 	if err := os.MkdirAll(filepath.Dir(abs), 0o755); err != nil {
 		t.Fatalf("造已有文件所在的目录：%v", err)
@@ -21,7 +21,7 @@ func TestExistingFileIsSkippedAndLeftAlone(t *testing.T) {
 		t.Fatalf("写已有文件：%v", err)
 	}
 
-	stdout, stderr, code := runCLI(t, root, "lecture", "01-basics", "hello")
+	stdout, stderr, code := runCLI(t, root, "homework", "01-basics", "hello")
 
 	if code != 0 {
 		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
@@ -45,16 +45,16 @@ func TestExistingFileIsSkippedAndLeftAlone(t *testing.T) {
 func TestWriteFailureExitsOne(t *testing.T) {
 	root := fakeRepo(t)
 
-	lectures := filepath.Join(root, "src", "lectures")
-	if err := os.MkdirAll(lectures, 0o755); err != nil {
-		t.Fatalf("造讲义区：%v", err)
+	homeworkDir := filepath.Join(root, "src", "homework")
+	if err := os.MkdirAll(homeworkDir, 0o755); err != nil {
+		t.Fatalf("造作业区：%v", err)
 	}
 	// 把主题目录的位置占成一个文件，建目录必然失败。
-	if err := os.WriteFile(filepath.Join(lectures, "01-basics"), []byte("占位"), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(homeworkDir, "01-basics"), []byte("占位"), 0o644); err != nil {
 		t.Fatalf("占位文件：%v", err)
 	}
 
-	_, stderr, code := runCLI(t, root, "lecture", "01-basics", "hello")
+	_, stderr, code := runCLI(t, root, "homework", "01-basics", "hello")
 
 	if code != 1 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 1)

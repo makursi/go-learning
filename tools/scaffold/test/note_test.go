@@ -1,8 +1,6 @@
 package scaffoldtest
 
 import (
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -45,15 +43,4 @@ func TestNoteTitleFlagBecomesHeading(t *testing.T) {
 	if content != "# 映射（Maps）\n\n" {
 		t.Errorf("笔记内容 = %q，想要 --title 原样成为标题", content)
 	}
-}
-
-func readFile(t *testing.T, root, rel string) string {
-	t.Helper()
-
-	data, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(rel)))
-	if err != nil {
-		t.Fatalf("读 %s：%v", rel, err)
-	}
-
-	return string(data)
 }

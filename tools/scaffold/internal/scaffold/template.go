@@ -7,7 +7,7 @@ const (
 	exitUsage = 2 // 用法或校验失败，什么都没写
 )
 
-// mainGoTemplate 是讲义与作业共用的最小可运行骨架。
+// mainGoTemplate 是作业骨架：最小、能直接 go run 的 package main。
 // 缩进必须是 tab、结尾必须有换行，否则生成的文件过不了 gofmt。
 const mainGoTemplate = "package main\n\nfunc main() {\n}\n"
 
@@ -18,7 +18,7 @@ func noteContent(title string) string {
 	return "# " + title + "\n\n"
 }
 
-// goContent 是讲义与作业共用的内容生成器；--title 对它们没有意义。
+// goContent 是作业的内容生成器；--title 对它没有意义。
 func goContent(string) string {
 	return mainGoTemplate
 }

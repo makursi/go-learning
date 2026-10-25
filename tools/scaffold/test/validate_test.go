@@ -1,8 +1,6 @@
 package scaffoldtest
 
 import (
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -27,7 +25,7 @@ func TestRejectsInvalidTopicAndName(t *testing.T) {
 		t.Run(tc.desc, func(t *testing.T) {
 			root := fakeRepo(t)
 
-			_, stderr, code := runCLI(t, root, "lecture", tc.topic, tc.name)
+			_, stderr, code := runCLI(t, root, "homework", tc.topic, tc.name)
 
 			if code != 2 {
 				t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 2, stderr)
@@ -41,21 +39,5 @@ func TestRejectsInvalidTopicAndName(t *testing.T) {
 
 			assertOnlyGoMod(t, root)
 		})
-	}
-}
-
-// assertOnlyGoMod 断言假仓库里除了 go.mod 之外没有任何东西被创建。
-func assertOnlyGoMod(t *testing.T, root string) {
-	t.Helper()
-
-	entries, err := os.ReadDir(root)
-	if err != nil {
-		t.Fatalf("读假仓库根：%v", err)
-	}
-
-	for _, entry := range entries {
-		if entry.Name() != "go.mod" {
-			t.Errorf("不该创建 %s", filepath.Join(root, entry.Name()))
-		}
 	}
 }
