@@ -56,6 +56,8 @@ Issue 与 spec 发布在 `makursi/go-learning` 的 GitHub Issues，一律用 `gh
 
 此后所有改动：分支 → 提交 → `gh pr create` → **等用户确认** → `gh pr merge --squash --delete-branch`。这条对本仓是用户明确要求保留的，别以"单人仓没必要"为由省掉。
 
+手动走这套流程时，照 `docs/pr-workflow.md` 的七步做。
+
 ## 门禁
 
 ```sh
