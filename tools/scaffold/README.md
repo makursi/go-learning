@@ -1,12 +1,11 @@
 # scaffold
 
-按学习内容的结构生成目录与骨架。一次调用只落一个种类的一个条目：笔记、讲义、作业三边互不牵连。
+按学习内容的结构生成目录与骨架。一次调用只落一个种类的一个条目：笔记与作业互不牵连。
 
 ## 命令
 
 ```sh
 go run ./tools/scaffold note     --title "映射（Maps）" 02-data-structures maps
-go run ./tools/scaffold lecture  02-data-structures maps
 go run ./tools/scaffold homework 02-data-structures fruit-count
 ```
 
@@ -15,13 +14,12 @@ flag 必须写在位置参数之前——标准库 `flag` 在第一个位置参�
 | 种类 | 落点 | `--title` |
 | --- | --- | --- |
 | `note` | `src/notes/<topic>/<name>.md` | 有效，缺省用名字 |
-| `lecture` | `src/lectures/<topic>/<name>/main.go` | 不支持 |
 | `homework` | `src/homework/<topic>/<name>/main.go` | 不支持 |
 
 - `<topic>` 必须带两位编号，形如 `03-functions`。编号写错或不写时，报错里会给出下一个可用编号。
 - `<name>` 是英文小写 slug：字母、数字、单个连字符。
 - 只建该种类用到的那棵树，不会顺手在另外两棵树里造空目录。
-- 笔记只有一个一级标题和一个空行；讲义与作业是最小的 `package main` + `main()`。作业目录不放 `README.md`，题面记在对应笔记里。
+- 笔记只有一个一级标题和一个空行；作业是最小的 `package main` + `main()`。作业目录不放 `README.md`，题面记在对应笔记里。
 
 ## 代码结构
 
@@ -63,4 +61,4 @@ go install ./tools/scaffold
 
 ## 加一种内容种类
 
-`internal/scaffold/kinds.go` 的表里加一行 + `template.go` 里加一个内容生成器，判定逻辑不用动。`src/projects/` 将来要用时照此加。
+`internal/scaffold/kinds.go` 的表里加一行 + `template.go` 里加一个内容生成器，判定逻辑不用动。将来真要加一类，先把理由写进 `docs/agents/design-notes.md`——这个仓刻意只有两类。

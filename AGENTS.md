@@ -1,16 +1,14 @@
 # AGENTS.md
 
-Go 语言学习仓库：学习笔记、讲义代码、课后作业三类内容，每个示例与作业都能独立运行。
+Go 语言学习仓库：学习笔记与课后作业两类内容，每道作业都能独立运行。
 
 ## 目录约定
 
 | 目录 | 放什么 | 形态 |
 | --- | --- | --- |
-| `src/` | **内容区**：被学习的全部内容，下含三类 | — |
+| `src/` | **内容区**：被学习的全部内容，下含两类 | — |
 | `src/notes/` | 学习笔记，按主题编号分目录 | Markdown |
-| `src/lectures/` | 课程讲义代码，每个示例一个目录 | `package main` + `main()` |
 | `src/homework/` | 课后作业，每道题一个目录 | `package main` + `main()` |
-| `src/projects/` | 综合练习项目（学到需要时再建） | 可含测试 |
 | `tools/` | **工具区**：服务于学习本身的程序 | 独立 `package main` |
 | `docs/` | 设计推导与决策记录 | Markdown |
 | `docs/specs/` | 已发布 spec 的仓库内快照，以 issue 为准 | Markdown |
@@ -19,12 +17,14 @@ Go 语言学习仓库：学习笔记、讲义代码、课后作业三类内容�
 
 已知代价：将来从这些内容里长出的可复用包，导入路径是 `github.com/makursi/go-learning/src/...`，比无 `src/` 时多一级。
 
+**讲义这一类是刻意移除的，不要加回。** 内容区曾有过第三棵树 `src/lectures/`（跟课敲的示例代码），2026-10-25 连同 `scaffold lecture` 命令一起删除：它与作业目录形状相同、内容重叠，而笔记里的围栏代码块已经承载「跟课敲的片段」。仓库只需要「记理解」与「自己写」两个动作。真要加回一类，路径是给 `tools/scaffold` 的种类表加一行 + 一个内容生成器，理由先写进 `docs/agents/design-notes.md`。取舍见 `docs/agents/design-notes.md` 第三轮。
+
 `tools/` 放服务于学习本身的程序，目前只有一个：`scaffold`，按主题生成目录与骨架（见 `tools/scaffold/README.md`）。**往 `tools/` 里加东西之前先跟用户确认。**
 
 - 路径全英文小写 slug；正文中文；术语首次出现写 `中文（English）`；代码注释中文。
 - 单一根模块（`github.com/makursi/go-learning`），不给单个练习建 `go.mod`，暂不引入 `go.work`。
-- 三边对齐靠同一个主题编号：`src/notes/02-data-structures/maps.md` ↔ `src/lectures/02-data-structures/maps/`；作业按题名走 `src/homework/02-data-structures/fruit-count/`，不要求和讲义同名。允许缺位，不强制每个知识点齐三份。
-- 目录与骨架由 `go run ./tools/scaffold ...` 生成，不手搓：`note` / `lecture` / `homework` 三条命令，flag 写在位置参数之前。
+- 笔记与作业靠同一个主题编号对齐：`src/notes/02-data-structures/maps.md` ↔ `src/homework/02-data-structures/fruit-count/`，作业按题名走，不要求和笔记同名。允许缺位，不强制每个知识点两边齐备。
+- 目录与骨架由 `go run ./tools/scaffold ...` 生成，不手搓：`note` / `homework` 两条命令，flag 写在位置参数之前。
 
 ## 域文档
 
@@ -66,6 +66,6 @@ go vet ./...
 go build ./...
 ```
 
-作业不配 `_test.go`，正确性靠 `go run` 看输出；`src/projects/` 里的综合项目与 `tools/` 里的程序要配测试。
+作业不配 `_test.go`，正确性靠 `go run` 看输出（一次性答案）；`tools/` 里的程序要配测试（长期程序）。
 
 CI 暂缺。触发条件：第一次引入第三方依赖（Gin / GORM）时补 `.github/workflows/go.yml`，跑上面三条。
