@@ -45,12 +45,12 @@ func TestExistingFileIsSkippedAndLeftAlone(t *testing.T) {
 func TestWriteFailureExitsOne(t *testing.T) {
 	root := fakeRepo(t)
 
-	homework := filepath.Join(root, "src", "homework")
-	if err := os.MkdirAll(homework, 0o755); err != nil {
+	homeworkDir := filepath.Join(root, "src", "homework")
+	if err := os.MkdirAll(homeworkDir, 0o755); err != nil {
 		t.Fatalf("造作业区：%v", err)
 	}
 	// 把主题目录的位置占成一个文件，建目录必然失败。
-	if err := os.WriteFile(filepath.Join(homework, "01-basics"), []byte("占位"), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(homeworkDir, "01-basics"), []byte("占位"), 0o644); err != nil {
 		t.Fatalf("占位文件：%v", err)
 	}
 

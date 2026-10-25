@@ -68,12 +68,12 @@ func TestHomeworkCreatesRunnableSkeleton(t *testing.T) {
 
 func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
 	cases := []struct {
-		desc  string
-		args  []string
-		trees []string
+		desc       string
+		args       []string
+		wantAbsent string
 	}{
-		{"作业不碰笔记区", []string{"homework", "01-basics", "fruit-count"}, []string{"src/notes"}},
-		{"笔记不碰作业区", []string{"note", "01-basics", "maps"}, []string{"src/homework"}},
+		{"作业不碰笔记区", []string{"homework", "01-basics", "fruit-count"}, "src/notes"},
+		{"笔记不碰作业区", []string{"note", "01-basics", "maps"}, "src/homework"},
 	}
 
 	for _, tc := range cases {
@@ -84,10 +84,8 @@ func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
 				t.Fatalf("%s 生成失败，退出码 = %d", tc.args[0], code)
 			}
 
-			for _, tree := range tc.trees {
-				if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(tree))); !os.IsNotExist(err) {
-					t.Errorf("%s 不该被 %s 建出来", tree, tc.args[0])
-				}
+			if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(tc.wantAbsent))); !os.IsNotExist(err) {
+				t.Errorf("%s 不该被 %s 建出来", tc.wantAbsent, tc.args[0])
 			}
 		})
 	}

@@ -15,7 +15,7 @@ func fakeRepo(t *testing.T) string {
 	t.Helper()
 
 	root := t.TempDir()
-	gomod := "module " + "github.com/makursi/go-learning" + "\n\ngo 1.27.1\n"
+	const gomod = "module github.com/makursi/go-learning\n\ngo 1.27.1\n"
 	if err := os.WriteFile(filepath.Join(root, "go.mod"), []byte(gomod), 0o644); err != nil {
 		t.Fatalf("写 go.mod：%v", err)
 	}
@@ -43,4 +43,32 @@ func hasMainFunc(file *ast.File) bool {
 	}
 
 	return false
+}
+
+// readFile 按仓库相对路径读一个已生成的文件。
+func readFile(t *testing.T, root, rel string) string {
+	t.Helper()
+
+	data, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(rel)))
+	if err != nil {
+		t.Fatalf("读 %s：%v", rel, err)
+	}
+
+	return string(data)
+}
+
+// assertOnlyGoMod 断言假仓库里除了 go.mod 之外没有任何东西被创建。
+func assertOnlyGoMod(t *testing.T, root string) {
+	t.Helper()
+
+	entries, err := os.ReadDir(root)
+	if err != nil {
+		t.Fatalf("读假仓库根：%v", err)
+	}
+
+	for _, entry := range entries {
+		if entry.Name() != "go.mod" {
+			t.Errorf("不该创建 %s", filepath.Join(root, entry.Name()))
+		}
+	}
 }
