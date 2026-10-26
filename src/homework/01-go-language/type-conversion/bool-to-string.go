@@ -13,11 +13,12 @@ func BoolToString() {
 	s3 := "yes"
 
 	s1bool, err := strconv.ParseBool(s1)
-	s2bool, err := strconv.ParseBool(s2)
-	s3bool, err := strconv.ParseBool(s3)
-
 	fmt.Println(s1bool, err)
+
+	s2bool, err := strconv.ParseBool(s2)
 	fmt.Println(s2bool, err)
+
+	s3bool, err := strconv.ParseBool(s3)
 	fmt.Println(s3bool, err)
 
 }

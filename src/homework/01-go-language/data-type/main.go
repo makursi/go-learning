@@ -8,7 +8,6 @@ func main() {
 	Bool()
 	SliceArray()
 	Map()
-	SliceArray()
 	Struct()
 	Interface()
 
