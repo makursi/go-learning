@@ -50,7 +50,7 @@ func parseAndDouble(s string) (int, error) {
 		return 0, err
 	}
 
-	return num * 2, nil //返回函数的默认空值nil
+	return num * 2, nil // nil 表示没有错误
 }
 func main() {
 
@@ -77,22 +77,32 @@ func main() {
 
 	//匿名函数
 
+	// 立刻执行
 	func() {
 		for i := 1; i <= 5; i++ {
 			fmt.Println(i)
 		}
 	}()
 
+	// 赋给变量后再调用一次
+	printOneToFive := func() {
+		for i := 1; i <= 5; i++ {
+			fmt.Println(i)
+		}
+	}
+	printOneToFive()
+
 	//综合练习
 
+	// 每次调用后立刻判错：err 只有一个，晚判就会读到下一次调用的结果
 	convNum1, err := parseAndDouble("21")
-	convNum2, err := parseAndDouble("abc")
-
 	if err != nil {
 		fmt.Println("发生错误：", err)
 	} else {
 		fmt.Println("计算结果：", convNum1)
 	}
+
+	convNum2, err := parseAndDouble("abc")
 	if err != nil {
 		fmt.Println("发生错误：", err)
 	} else {
