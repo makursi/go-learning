@@ -2,12 +2,14 @@
 
 package main
 
+import "fmt"
+
 func IntCovers() {
 
 	floatNum := 9.99
 	intNum := int(floatNum)
-	println("Float:", floatNum)
-	println("Int:", intNum)
+	fmt.Println("Float:", floatNum)
+	fmt.Println("Int:", intNum)
 	convertedBack := float64(intNum)
-	println("Converted Back:", convertedBack)
+	fmt.Println("Converted Back:", convertedBack)
 }

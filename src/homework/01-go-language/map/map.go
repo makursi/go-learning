@@ -10,6 +10,7 @@ func Map() {
 		"Hobby": "program",
 	}
 
+	person["City"] = "taiyuan"
 	person["Career"] = "student"
 
 	fmt.Println(person)
