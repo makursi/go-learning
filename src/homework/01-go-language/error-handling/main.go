@@ -14,6 +14,15 @@ func main() {
 		fmt.Println("计算结果为:", result)
 	}
 
+	// 除数为零：错误分支要真的走一次
+	result, err = divide(10, 0)
+
+	if err != nil {
+		fmt.Println("计算错误", err)
+	} else {
+		fmt.Println("计算结果为:", result)
+	}
+
 	// 业务错误对比
 
 	_, err = nn(5)
@@ -37,13 +46,7 @@ func main() {
 			fmt.Println("捕获到程序错误:", info)
 		}
 	}()
-	result, err = mustPositive(-1)
-
-	if err != nil {
-		fmt.Println("执行失败")
-	} else {
-		fmt.Println("执行成功", result)
-	}
+	mustPositive(-1)
 
 	fmt.Println("其余逻辑")
 }

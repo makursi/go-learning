@@ -3,11 +3,9 @@
 
 package main
 
-func mustPositive(n int) (int, error) {
+func mustPositive(n int) {
 
 	if n <= 0 {
 		panic("错误")
 	}
-
-	return 1, nil
 }
