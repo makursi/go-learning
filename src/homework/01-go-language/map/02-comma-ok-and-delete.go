@@ -1,11 +1,11 @@
-// 逗号 ok：给定 scores := map[string]int{"语文": 90, "数学": 0}，分别判断「语文」「数学」「英语」是否存在，并正确打印成绩或「不存在」。
-// 删除与长度：在上一题的 map 上删除「数学」，用 len 打印剩余键值对数量。
+// 题目：给定 scores := map[string]int{"语文": 90, "数学": 0}，分别判断「语文」「数学」「英语」是否存在，并正确打印成绩或「不存在」；
+// 再删除「数学」，用 len 打印剩余键值对数量。
+
 package main
 
 import "fmt"
 
-func Map1() {
-
+func CommaOkAndDelete() {
 	scores := map[string]int{
 		"语文": 90,
 		"数学": 0,
@@ -29,7 +29,6 @@ func Map1() {
 		fmt.Println("不存在")
 	}
 
-	//删除数学,打印长度
 	delete(scores, "数学")
 
 	fmt.Println(len(scores))
