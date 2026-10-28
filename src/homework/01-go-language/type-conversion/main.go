@@ -1,9 +1,8 @@
 package main
 
 func main() {
-
-	IntCovers()
+	FloatIntRoundTrip()
 	IntToString()
 	StringToInt()
-	BoolToString()
+	StringToBool()
 }

@@ -1,7 +1,6 @@
 package main
 
 func main() {
-
-	Struct()
-	Struct1()
+	DefineAndMethods()
+	NestAndEmbed()
 }
