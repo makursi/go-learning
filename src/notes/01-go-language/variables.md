@@ -1,4 +1,4 @@
-# varibles
+# variables
 
 ## 变量声明
 
