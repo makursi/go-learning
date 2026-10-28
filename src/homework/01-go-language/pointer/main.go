@@ -25,11 +25,15 @@ func main() {
 		"英语": 92,
 	}
 
-	updateScore(scores, "英语", 30)
+	updateScore(scores, "英语", 30) // 改
 
 	fmt.Println(scores)
 
-	removeSubject(scores, "语文")
+	updateScore(scores, "物理", 10) // 增：科目不存在时等价于 0 + delta
+
+	fmt.Println(scores)
+
+	removeSubject(scores, "语文") // 删
 
 	fmt.Println(scores)
 

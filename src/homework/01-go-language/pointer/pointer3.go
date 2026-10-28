@@ -13,5 +13,5 @@ func addByValue(c Counter) {
 }
 
 func addByPointer(c *Counter) {
-	(*c).Value += 1
+	c.Value += 1 // 指针接收者的字段访问会自动解引用，不必写 (*c).Value
 }
