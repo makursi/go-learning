@@ -1,5 +1,5 @@
 // 题目：写 updateScore(scores map[string]int, subject string, delta int) 给某科加分、科目不存在则新建；再写 removeSubject 删除一科。
-// 在 main 里验证改、增、删三种情况。
+// 验证改、增、删三种情况。
 
 package main
 

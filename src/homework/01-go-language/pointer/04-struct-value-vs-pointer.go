@@ -1,5 +1,5 @@
 // 题目：定义 Counter struct { Value int }，分别写 addByValue(c Counter) 与 addByPointer(c *Counter) 各让 Value 加一。
-// 在 main 里各调用一次，对比哪种方式能让外面的 Counter 真的加一。
+// 各调用一次，对比哪种方式能让外面的 Counter 真的加一。
 
 package main
 

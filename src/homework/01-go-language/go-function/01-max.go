@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-// 题目要的就是叫 max：它会遮蔽 Go 1.21 起的内建 max，但在本包里够用。
+// 注意：这个函数会遮蔽 Go 1.21 起的内建 max，在本题范围内够用。
 func max(a, b int) int {
 	if a > b {
 		return a

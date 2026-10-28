@@ -69,7 +69,7 @@ _Avoid_: 章节、单元
 _Avoid_: 文档、教程
 
 **Homework（作业）**：
-`src/homework/<topic>/<name>/` 下的一个题目集，是可运行代码唯一的落点。目录里一个 `main.go` 只按题号顺序调度，题目说明记在对应的 Notes 里，不塞进作业目录。
+`src/homework/<topic>/<name>/` 下的一个题目集，是可运行代码唯一的落点。目录里一个 `main.go` 只按题号顺序调度；题面不另建文件，写在该题文件顶部的 `// 题目：` 注释里，完整讲解仍记在对应的 Notes。
 _Avoid_: 习题集、课程作业
 
 **Exercise（练习题）**：
