@@ -1,10 +1,10 @@
-//切片声明与追加：声明切片 []string{"唱", "跳", "rap"}，用 append 在尾部追加 "篮球"，打印切片内容、len 和 cap。
+// 题目：声明切片 []string{"唱", "跳", "rap"}，用 append 在尾部追加 "篮球"，打印切片内容、len 和 cap。
 
 package main
 
 import "fmt"
 
-func Slice() {
+func AppendAndCap() {
 	kun := []string{
 		"唱", "跳", "rap",
 	}
