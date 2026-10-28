@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	IntToFloat()
+	FloatIntRoundTrip()
 	IntToString()
 	StringToInt()
 	StringToBool()

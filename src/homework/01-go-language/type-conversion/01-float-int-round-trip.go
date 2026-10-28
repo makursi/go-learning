@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func IntToFloat() {
+func FloatIntRoundTrip() {
 	floatNum := 9.99
 	intNum := int(floatNum)
 	fmt.Println("Float:", floatNum)
