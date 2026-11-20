@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Go 语言学习仓库：学习笔记与课后作业两类内容，每个作业目录都能独立运行。
+Go 语言学习仓库：学习笔记与课后作业两类内容，每道题目都能独立运行。
 
 ## 目录约定
 
@@ -8,7 +8,7 @@ Go 语言学习仓库：学习笔记与课后作业两类内容，每个作业�
 | --- | --- | --- |
 | `src/` | **内容区**：被学习的全部内容，下含两类 | — |
 | `src/notes/` | 学习笔记，按主题编号分目录 | Markdown |
-| `src/homework/` | 课后作业，一个主题一个目录，目录内一题一文件 | `main.go` 只做调度 + `NN-slug.go` 题目文件 |
+| `src/homework/` | 课后作业，一个主题一个目录，目录内一题一目录 | `<NN-slug>/main.go`，自带 `func main()` |
 | `tools/` | **工具区**：服务于学习本身的程序 | 独立 `package main` |
 | `docs/` | 设计推导与决策记录 | Markdown |
 | `docs/specs/` | 已发布 spec 的仓库内快照，以 issue 为准 | Markdown |
@@ -23,9 +23,10 @@ Go 语言学习仓库：学习笔记与课后作业两类内容，每个作业�
 
 - 路径全英文小写 slug；正文中文；术语首次出现写 `中文（English）`；代码注释中文。
 - 单一根模块（`github.com/makursi/go-learning`），不给单个练习建 `go.mod`，暂不引入 `go.work`。
-- 笔记与作业靠同一个主题编号对齐：`src/notes/02-data-structures/maps.md` ↔ `src/homework/02-data-structures/fruit-count/`，作业按题名走，不要求和笔记同名。允许缺位，不强制每个知识点两边齐备。
-- 目录与骨架由 `go run ./tools/scaffold ...` 生成，不手搓：`note` / `homework` 两条命令，flag 写在位置参数之前。
-- **作业目录只有一种形状**：一个主题一个目录，目录里 `main.go` 只按题号顺序调度，每题一个 `NN-slug.go`。`NN` 是两位题号（从 `01` 起，顺序 = 学习顺序 = 笔记里出现的顺序），`slug` 说明**这道题验证什么**（`struct-value-vs-pointer`，不是类型名、不与目录同名）。文件名与入口函数一一对应：`02-swap.go` ↔ `Swap()`，题目自己的辅助函数、类型、方法留在同一文件里。题目注释写在文件最上方、`package` 之前，以 `// 题目：` 开头。
+- 笔记与作业靠同一个主题编号对齐：`src/notes/02-data-structures/maps.md` ↔ `src/homework/02-data-structures/01-fruit-count/`，作业按题名走，不要求和笔记同名。允许缺位，不强制每个知识点两边齐备。
+- 目录与骨架由 `go run ./tools/scaffold ...` 生成，不手搓：`note` / `exercise` 两条命令，flag 写在位置参数之前。
+- **作业只有一种形状**：一个主题一个目录，目录里一题一目录，每个题目目录只有一份 `main.go`、自带 `func main()`，自己就是一个 `package main`。目录名 **`NN-slug`**：`NN` 是两位题号（从 `01` 起，顺序 = 学习顺序 = 笔记里出现的顺序），`slug` 说明**这道题验证什么**（`struct-value-vs-pointer`，不是类型名、不与主题目录同名）。题目自己的辅助函数、类型、方法留在同一文件里。题目注释写在文件最上方、`package` 之前，以 `// 题目：` 开头。主题目录没有调度用的 `main.go`——每道题自己就能 `go run`。
+- **题目之间不共享代码**：一道题独占一个包，所以题内的辅助函数、类型、泛型函数可以随意命名，跨题不会撞名——这正是「一题一目录」要买的东西。想复用的东西只有两个去处：笔记里的代码块，或 `tools/` 里带测试的包。
 
 ## 域文档
 
