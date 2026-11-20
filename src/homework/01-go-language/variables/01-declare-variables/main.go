@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func DeclareVariables() {
+func main() {
 	var person string = "小满"
 	var num int = 18
 
