@@ -5,7 +5,7 @@ package main
 
 import "fmt"
 
-func CommaOkAndDelete() {
+func main() {
 	scores := map[string]int{
 		"语文": 90,
 		"数学": 0,

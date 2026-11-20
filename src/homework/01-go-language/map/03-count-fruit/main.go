@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func CountFruit() {
+func main() {
 	fruits := []string{"苹果", "香蕉", "苹果", "橘子", "香蕉", "苹果"}
 
 	count := make(map[string]int)

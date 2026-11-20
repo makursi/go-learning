@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func DeclareAndWrite() {
+func main() {
 	person := map[string]string{
 		"Name":  "choria",
 		"City":  "datong",
