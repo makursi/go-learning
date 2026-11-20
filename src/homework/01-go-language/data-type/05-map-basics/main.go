@@ -5,7 +5,7 @@ package main
 
 import "fmt"
 
-func MapBasics() {
+func main() {
 	students := map[string]int{
 		"Alice":   85,
 		"Bob":     95,

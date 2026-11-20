@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func BoolTrueFalse() {
+func main() {
 	online := true
 	fmt.Println(online)
 

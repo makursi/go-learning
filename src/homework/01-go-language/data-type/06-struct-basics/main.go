@@ -9,7 +9,7 @@ type Book struct {
 	Price float64
 }
 
-func StructBasics() {
+func main() {
 	book := Book{
 		Title: "Go Programming",
 		Price: 29.99,

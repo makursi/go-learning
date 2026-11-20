@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func IntAndFloat() {
+func main() {
 	age := 25
 	height := 175.5
 

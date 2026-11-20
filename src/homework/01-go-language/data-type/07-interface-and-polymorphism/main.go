@@ -16,17 +16,16 @@ func (r Rectangle) Area() float64 {
 	return r.width * r.height
 }
 
-// Book2 与第一题的 Book 同包重名，所以叫 Book2。
-type Book2 struct {
+type Book struct {
 	Title  string
 	Author string
 	Pages  int
 }
 
-func InterfaceAndPolymorphism() {
+func main() {
 	shape := Rectangle{width: 5, height: 10}
 
-	books := []Book2{
+	books := []Book{
 		{Title: "Book 1", Author: "Author 1", Pages: 100},
 		{Title: "Book 2", Author: "Author 2", Pages: 200},
 		{Title: "Book 3", Author: "Author 3", Pages: 300},

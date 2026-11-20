@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func StringConcat() {
+func main() {
 	name := "Golang"
 	school := "XYZ University"
 

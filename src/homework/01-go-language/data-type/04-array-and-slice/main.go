@@ -5,7 +5,7 @@ package main
 
 import "fmt"
 
-func ArrayAndSlice() {
+func main() {
 	array := [3]int{10, 20, 30}
 	fmt.Println(array)
 
