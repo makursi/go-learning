@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func StringToInt() {
+func main() {
 	s1 := "15"
 	s2 := "27"
 

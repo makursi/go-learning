@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func StringToBool() {
+func main() {
 	s1 := "1"
 	s2 := "false"
 	s3 := "yes"

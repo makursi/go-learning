@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func IntToString() {
+func main() {
 	var age int = 10
 
 	ageToString := strconv.Itoa(age)
