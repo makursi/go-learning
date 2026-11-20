@@ -24,7 +24,7 @@ func printTimesTable(n int) error {
 	return nil
 }
 
-func MultiplicationTable() {
+func main() {
 	if err := printTimesTable(5); err != nil {
 		fmt.Println("调用失败", err)
 	}

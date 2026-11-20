@@ -15,7 +15,7 @@ func divide(a, b int) (int, error) {
 	return a / b, nil
 }
 
-func DivideReturnsError() {
+func main() {
 	result, err := divide(10, 2)
 
 	if err != nil {
