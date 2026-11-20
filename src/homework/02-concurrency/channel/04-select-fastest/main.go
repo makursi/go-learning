@@ -17,7 +17,7 @@ func workerB(ch chan string) {
 	ch <- "B 完成"
 }
 
-func SelectFastest() {
+func main() {
 	ch1 := make(chan string)
 	ch2 := make(chan string)
 

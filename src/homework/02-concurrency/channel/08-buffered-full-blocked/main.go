@@ -6,7 +6,7 @@ package main
 
 import "fmt"
 
-func BufferedFullBlocked() {
+func main() {
 	ch := make(chan string, 2) // 容量 2 的缓冲通道
 
 	ch <- "A"

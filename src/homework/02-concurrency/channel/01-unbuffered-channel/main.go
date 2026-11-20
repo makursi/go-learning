@@ -8,7 +8,7 @@ func sendOne(ch chan int) {
 	ch <- 100 // 向通道发送数据
 }
 
-func UnbufferedChannel() {
+func main() {
 	ch := make(chan int) // 无缓冲：发送与接收必须同时就绪
 
 	go sendOne(ch) // 先起发送方，否则主协程阻塞在 <-ch 时没人送值

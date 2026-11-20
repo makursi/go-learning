@@ -8,7 +8,7 @@ func double(n int, ch chan int) {
 	ch <- n * 2
 }
 
-func UnbufferedDocking() {
+func main() {
 	ch := make(chan int)
 
 	go double(21, ch)

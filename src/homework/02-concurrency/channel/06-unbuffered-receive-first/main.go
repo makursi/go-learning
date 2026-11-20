@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func UnbufferedReceiveFirst() {
+func main() {
 	ch := make(chan int) // 无缓冲通道
 
 	// 先起接收方，让它就绪并阻塞在 <-ch 上

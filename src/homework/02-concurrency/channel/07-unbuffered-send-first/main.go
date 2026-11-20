@@ -5,7 +5,7 @@ package main
 
 import "fmt"
 
-func UnbufferedSendFirst() {
+func main() {
 	ch := make(chan int) // 无缓冲通道
 
 	ch <- 10 // 此刻还没有接收方就绪，这里永久阻塞

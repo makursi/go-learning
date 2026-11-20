@@ -9,7 +9,7 @@ func sendTwo(ch chan int) {
 	ch <- 20
 }
 
-func BufferedChannel() {
+func main() {
 	ch := make(chan int, 2) // 有缓冲：容量 2，前两次发送不会阻塞
 
 	go sendTwo(ch)

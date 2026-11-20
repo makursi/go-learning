@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func CloseAndRange() {
+func main() {
 	ch := make(chan int, 3)
 
 	ch <- 1
