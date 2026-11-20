@@ -11,7 +11,7 @@ func sendOne(ch chan int) {
 func UnbufferedChannel() {
 	ch := make(chan int) // 无缓冲：发送与接收必须同时就绪
 
-	go sendOne(ch)
+	go sendOne(ch) // 先起发送方，否则主协程阻塞在 <-ch 时没人送值
 
 	data := <-ch // 主协程在这里等子协程把值送达
 
