@@ -13,7 +13,7 @@ func max(a, b int) int {
 	return b
 }
 
-func Max() {
+func main() {
 	maxNum := max(10, 20)
 	fmt.Println(maxNum)
 }

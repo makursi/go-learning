@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func AnonymousFunc() {
+func main() {
 	// 写法一：立刻执行（IIFE）
 	func() {
 		for i := 1; i <= 5; i++ {

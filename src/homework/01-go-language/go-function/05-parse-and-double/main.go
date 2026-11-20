@@ -16,7 +16,7 @@ func parseAndDouble(s string) (int, error) {
 	return num * 2, nil // nil 表示没有错误
 }
 
-func ParseAndDouble() {
+func main() {
 	// 每次调用后立刻判错：err 只有一个，晚判就会读到下一次调用的结果。
 	convNum1, err := parseAndDouble("21")
 	if err != nil {

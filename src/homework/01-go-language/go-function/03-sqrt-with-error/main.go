@@ -16,7 +16,7 @@ func sqrt(n float64) (float64, error) {
 	return math.Sqrt(n), nil
 }
 
-func SqrtWithError() {
+func main() {
 	result, err := sqrt(16)
 	if err != nil {
 		fmt.Println("错误：", err)

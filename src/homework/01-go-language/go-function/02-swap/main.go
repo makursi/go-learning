@@ -13,6 +13,6 @@ func swap(a, b int) (int, int) {
 	return a, b
 }
 
-func Swap() {
+func main() {
 	fmt.Println(swap(10, 20))
 }
