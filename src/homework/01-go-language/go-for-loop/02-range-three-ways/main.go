@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func RangeThreeWays() {
+func main() {
 	season := []string{"春", "夏", "秋", "冬"}
 
 	for idx := range season {

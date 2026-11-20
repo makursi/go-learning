@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func WhileSumOneToHundred() {
+func main() {
 	i := 1
 	sum := 0
 
