@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func InsertFrontAndMiddle() {
+func main() {
 	slice := []int{1, 2, 3, 4, 5}
 
 	slice = append([]int{-1, 0}, slice...)

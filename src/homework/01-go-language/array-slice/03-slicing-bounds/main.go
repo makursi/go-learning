@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func SlicingBounds() {
+func main() {
 	s := []int{10, 20, 30, 40, 50}
 	fmt.Println(s[1:4]) // 20 30 40
 	fmt.Println(s[:3])  // 10 20 30

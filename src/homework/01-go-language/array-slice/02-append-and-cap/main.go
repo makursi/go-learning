@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func AppendAndCap() {
+func main() {
 	kun := []string{
 		"唱", "跳", "rap",
 	}
