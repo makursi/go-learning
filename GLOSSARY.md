@@ -2,7 +2,7 @@
 
 一个 Go 语言学习仓库：记录语法理解与课后作业——笔记记知识点，作业写能跑的代码。
 
-技术上只有一个根模块 `github.com/makursi/go-learning`，每道作业都放在自己的目录里，因此都能单独 `go run`，不会因为共用 `main()` 而冲突。
+技术上只有一个根模块 `github.com/makursi/go-learning`，每道题都放在自己的目录里，因此都能单独 `go run`，不会因为共用 `main()` 而冲突。
 
 **内容分类、命名规则、Git 流程、门禁命令都写在 [AGENTS.md](AGENTS.md)。** 术语见 [GLOSSARY.md](GLOSSARY.md)，设计推导见 [docs/agents/design-notes.md](docs/agents/design-notes.md)。
 
@@ -69,9 +69,9 @@ _Avoid_: 章节、单元
 _Avoid_: 文档、教程
 
 **Homework（作业）**：
-`src/homework/<topic>/<name>/` 下的一个题目集，是可运行代码唯一的落点。目录里一个 `main.go` 只按题号顺序调度；题面不另建文件，写在该题文件顶部的 `// 题目：` 注释里，完整讲解仍记在对应的 Notes。
+`src/homework/<topic>/<homework>/` 下的一个题目集，是可运行代码唯一的落点，与同名笔记对齐。它只是一个容器，没有调度用的入口文件：每道题自己就能跑，顺序由各题目录的题号表达。
 _Avoid_: 习题集、课程作业
 
 **Exercise（练习题）**：
-作业目录里的单个题目文件，一题一个。文件名 `NN-slug.go`（两位题号 + 说明这题验证什么的 slug），并暴露一个与文件名对应的入口函数（`02-swap.go` ↔ `Swap()`）。多道练习题共用同一个作业目录与 `main.go`。
-_Avoid_: 小题、demo
+作业里的单个题目，一题一个目录：`<NN-slug>/`（两位题号 + 说明这题验证什么的 slug）里只有一份 `main.go`，它是独立的 `package main`，自带 `func main()`。题面不另建文件，写在 `main.go` 顶部、`package` 之前的 `// 题目：` 注释里。因为独占一个包，题内的辅助函数、类型、泛型函数可以随意命名，跨题不会撞名；题目之间也不共享代码。
+_Avoid_: 小题、demo、题目集

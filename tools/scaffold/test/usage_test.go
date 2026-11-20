@@ -11,9 +11,11 @@ func TestUsageErrors(t *testing.T) {
 		args []string
 	}{
 		{"没有参数", nil},
-		{"只有种类", []string{"homework"}},
-		{"缺名字", []string{"homework", "01-basics"}},
+		{"只有种类", []string{"exercise"}},
+		{"缺作业名与 slug", []string{"exercise", "02-concurrency"}},
+		{"缺 slug", []string{"exercise", "02-concurrency", "channel"}},
 		{"未知种类", []string{"topic", "01-basics", "hello"}},
+		{"homework 已不是种类", []string{"homework", "01-basics", "hello"}},
 		{"lecture 已不是种类", []string{"lecture", "01-basics", "hello"}},
 	}
 

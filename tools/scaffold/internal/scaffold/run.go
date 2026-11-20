@@ -16,7 +16,7 @@ type options struct {
 // 测试与 main 都只经过它，其余都是它的内部。
 func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 	if len(args) < 1 {
-		fmt.Fprintf(stderr, "error: 用法：scaffold <kind> <topic> <name>\n")
+		fmt.Fprintf(stderr, "error: 用法：scaffold <kind> <topic> [<homework>] <name>\n")
 
 		return exitUsage
 	}
@@ -33,13 +33,18 @@ func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 		return exitUsage
 	}
 
-	if len(rest) != 2 {
-		fmt.Fprintf(stderr, "error: %s 需要 <topic> <name> 两个参数，拿到 %d 个；用法：%s\n", k.name, len(rest), k.usageLine())
+	if want := k.argCount(); len(rest) != want {
+		fmt.Fprintf(stderr, "error: %s 需要 %d 个参数，拿到 %d 个；用法：%s\n", k.name, want, len(rest), k.usageLine())
 
 		return exitUsage
 	}
 
-	topic, name := rest[0], rest[1]
+	topic, group, name := rest[0], "", ""
+	if k.grouped {
+		group, name = rest[1], rest[2]
+	} else {
+		name = rest[1]
+	}
 
 	root, err := findRoot(cwd)
 	if err != nil {
@@ -54,10 +59,29 @@ func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 		return exitUsage
 	}
 
+	if group != "" {
+		if err := validateName(group); err != nil {
+			fmt.Fprintf(stderr, "error: 作业名 %v\n", err)
+
+			return exitUsage
+		}
+	}
+
 	if err := validateName(name); err != nil {
 		fmt.Fprintf(stderr, "error: %v\n", err)
 
 		return exitUsage
+	}
+
+	if k.numbered {
+		number, err := nextNumber(root, k, topic, group)
+		if err != nil {
+			fmt.Fprintf(stderr, "error: %v\n", err)
+
+			return exitUsage
+		}
+
+		name = number + "-" + name
 	}
 
 	title := opts.title
@@ -65,7 +89,7 @@ func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 		title = name
 	}
 
-	item := plan(k, root, topic, name, title, fileExists)
+	item := plan(k, root, topic, group, name, title, fileExists)
 
 	if opts.dryRun {
 		report(stdout, item.outcome(), item.rel)
