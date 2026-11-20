@@ -2,7 +2,7 @@
 
 一个 Go 语言学习仓库：记录语法理解与课后作业——笔记记知识点，作业写能跑的代码。
 
-技术上只有一个根模块 `github.com/makursi/go-learning`，每道作业都放在自己的目录里，因此都能单独 `go run`，不会因为共用 `main()` 而冲突。
+技术上只有一个根模块 `github.com/makursi/go-learning`，每道题都放在自己的目录里，因此都能单独 `go run`，不会因为共用 `main()` 而冲突。
 
 **内容分类、命名规则、Git 流程、门禁命令都写在 [AGENTS.md](AGENTS.md)。** 术语见 [GLOSSARY.md](GLOSSARY.md)，设计推导见 [docs/agents/design-notes.md](docs/agents/design-notes.md)。
 

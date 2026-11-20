@@ -36,15 +36,6 @@ func topicNumberHint(root string) (string, bool) {
 	return fmt.Sprintf("下一个可用编号是 %02d", maxNumber+1), true
 }
 
-// argCount 是这种种类需要的位置参数个数：分组的种类多一层作业名。
-func (k kind) argCount() int {
-	if k.grouped {
-		return 3
-	}
-
-	return 2
-}
-
 // nextNumber 给出条目所在目录下一个可用的两位题号。
 // 题号是目录内的追加顺序，所以取「现有最大 + 1」；目录读不出来时按「还没有题」
 // 处理——真正的失败会在建目录那一步带着路径报出来，这里不该先把它报成用法错误。

@@ -48,6 +48,15 @@ func (k kind) argName() string {
 	return k.argLabel
 }
 
+// argCount 是这种种类需要的位置参数个数：分组的种类多一层作业名。
+func (k kind) argCount() int {
+	if k.grouped {
+		return 3
+	}
+
+	return 2
+}
+
 // usageLine 是这种种类在出错时给出的用法提示。
 func (k kind) usageLine() string {
 	args := "<topic> <" + k.argName() + ">"

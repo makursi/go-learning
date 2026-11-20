@@ -16,7 +16,7 @@ type options struct {
 // 测试与 main 都只经过它，其余都是它的内部。
 func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 	if len(args) < 1 {
-		fmt.Fprintf(stderr, "error: 用法：scaffold <kind> <topic> <name>\n")
+		fmt.Fprintf(stderr, "error: 用法：scaffold <kind> <topic> [<homework>] <name>\n")
 
 		return exitUsage
 	}
