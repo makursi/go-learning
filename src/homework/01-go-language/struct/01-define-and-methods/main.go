@@ -21,7 +21,7 @@ func (b *Book) AddPages(n int) {
 	b.Pages += n
 }
 
-func DefineAndMethods() {
+func main() {
 	book := Book{
 		Name:   "go program",
 		Author: "Alice",

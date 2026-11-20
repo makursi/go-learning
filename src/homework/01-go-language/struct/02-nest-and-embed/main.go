@@ -15,7 +15,7 @@ type User struct {
 	Address // 嵌入字段：没有字段名，类型名就是字段名
 }
 
-func NestAndEmbed() {
+func main() {
 	user1 := User{
 		Name: "choria",
 		Address: Address{
