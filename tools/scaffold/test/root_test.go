@@ -10,18 +10,18 @@ import (
 func TestRunsFromAnyDirectoryInsideRepo(t *testing.T) {
 	root := fakeRepo(t)
 
-	sub := filepath.Join(root, "src", "homework", "01-basics", "01-hello")
+	sub := filepath.Join(root, "src", "homework", "02-concurrency", "channel", "01-hello")
 	if err := os.MkdirAll(sub, 0o755); err != nil {
 		t.Fatalf("造的嵌套目录：%v", err)
 	}
 
-	stdout, stderr, code := runCLI(t, sub, "exercise", "02-functions", "demo")
+	stdout, stderr, code := runCLI(t, sub, "exercise", "03-functions", "closures", "demo")
 
 	if code != 0 {
 		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
 
-	rel := "src/homework/02-functions/01-demo/main.go"
+	rel := "src/homework/03-functions/closures/01-demo/main.go"
 	if !strings.Contains(stdout, "create "+rel) {
 		t.Errorf("stdout 应报告 create %s，得到 %q", rel, stdout)
 	}
@@ -33,7 +33,7 @@ func TestRunsFromAnyDirectoryInsideRepo(t *testing.T) {
 func TestRefusesOutsideRepo(t *testing.T) {
 	outside := t.TempDir()
 
-	_, stderr, code := runCLI(t, outside, "exercise", "01-basics", "hello")
+	_, stderr, code := runCLI(t, outside, "exercise", "02-concurrency", "channel", "hello")
 
 	if code != 2 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 2)

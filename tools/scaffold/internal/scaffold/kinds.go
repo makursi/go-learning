@@ -17,22 +17,29 @@ type kind struct {
 	content func(title string) string
 	// titled 表示这种种类接受 --title。
 	titled bool
-	// numbered 表示条目名带两位题号，编号由工具按主题目录的现状分配。
+	// grouped 表示主题与条目之间还有一层（作业名，与笔记同名）。
+	grouped bool
+	// numbered 表示条目名带两位题号，编号由工具按所在目录的现状分配。
 	numbered bool
-	// argLabel 是第二个位置参数在用法提示里的名字，缺省叫 name。
+	// argLabel 是条目那一个位置参数在用法提示里的名字，缺省叫 name。
 	argLabel string
 }
 
 // relPath 给出条目相对于仓库根的路径。
-func (k kind) relPath(topic, name string) string {
-	if k.dirEntry != "" {
-		return path.Join(k.root, topic, name, k.dirEntry)
+func (k kind) relPath(topic, group, name string) string {
+	base := path.Join(k.root, topic)
+	if group != "" {
+		base = path.Join(base, group)
 	}
 
-	return path.Join(k.root, topic, name+k.fileExt)
+	if k.dirEntry != "" {
+		return path.Join(base, name, k.dirEntry)
+	}
+
+	return path.Join(base, name+k.fileExt)
 }
 
-// argName 是第二个位置参数在提示里叫什么。
+// argName 是条目那一个位置参数在提示里叫什么。
 func (k kind) argName() string {
 	if k.argLabel == "" {
 		return "name"
@@ -43,11 +50,16 @@ func (k kind) argName() string {
 
 // usageLine 是这种种类在出错时给出的用法提示。
 func (k kind) usageLine() string {
-	if k.titled {
-		return "scaffold " + k.name + " [--dry-run] [--title <标题>] <topic> <" + k.argName() + ">"
+	args := "<topic> <" + k.argName() + ">"
+	if k.grouped {
+		args = "<topic> <homework> <" + k.argName() + ">"
 	}
 
-	return "scaffold " + k.name + " [--dry-run] <topic> <" + k.argName() + ">"
+	if k.titled {
+		return "scaffold " + k.name + " [--dry-run] [--title <标题>] " + args
+	}
+
+	return "scaffold " + k.name + " [--dry-run] " + args
 }
 
 var kinds = []kind{
@@ -63,6 +75,7 @@ var kinds = []kind{
 		root:     "src/homework",
 		dirEntry: "main.go",
 		content:  exerciseContent,
+		grouped:  true,
 		numbered: true,
 		argLabel: "slug",
 	},

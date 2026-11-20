@@ -46,7 +46,7 @@ func TestExistingNoteIsSkippedAndLeftAlone(t *testing.T) {
 func TestExistingExerciseIsNeverReused(t *testing.T) {
 	root := fakeRepo(t)
 
-	oldAbs := filepath.Join(root, "src", "homework", "01-basics", "01-hello", "main.go")
+	oldAbs := filepath.Join(root, "src", "homework", "02-concurrency", "channel", "01-hello", "main.go")
 	if err := os.MkdirAll(filepath.Dir(oldAbs), 0o755); err != nil {
 		t.Fatalf("造已有题目：%v", err)
 	}
@@ -55,12 +55,12 @@ func TestExistingExerciseIsNeverReused(t *testing.T) {
 		t.Fatalf("写已有题目：%v", err)
 	}
 
-	stdout, stderr, code := runCLI(t, root, "exercise", "01-basics", "hello")
+	stdout, stderr, code := runCLI(t, root, "exercise", "02-concurrency", "channel", "hello")
 
 	if code != 0 {
 		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
 	}
-	if want := "create src/homework/01-basics/02-hello/main.go"; !strings.Contains(stdout, want) {
+	if want := "create src/homework/02-concurrency/channel/02-hello/main.go"; !strings.Contains(stdout, want) {
 		t.Errorf("stdout 应报告 %q，得到 %q", want, stdout)
 	}
 
@@ -81,11 +81,11 @@ func TestWriteFailureExitsOne(t *testing.T) {
 		t.Fatalf("造作业区：%v", err)
 	}
 	// 把主题目录的位置占成一个文件，建目录必然失败。
-	if err := os.WriteFile(filepath.Join(homeworkDir, "01-basics"), []byte("占位"), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(homeworkDir, "02-concurrency"), []byte("占位"), 0o644); err != nil {
 		t.Fatalf("占位文件：%v", err)
 	}
 
-	_, stderr, code := runCLI(t, root, "exercise", "01-basics", "hello")
+	_, stderr, code := runCLI(t, root, "exercise", "02-concurrency", "channel", "hello")
 
 	if code != 1 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 1)

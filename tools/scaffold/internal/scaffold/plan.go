@@ -45,8 +45,8 @@ func (s step) outcome() status {
 
 // plan 是纯函数：除了问一句「这个路径存在吗」，它不碰文件系统。
 // 规划与执行分开，是为了让 --dry-run 与真实运行共用同一份判断。
-func plan(k kind, root, topic, name, title string, exists func(string) bool) step {
-	rel := k.relPath(topic, name)
+func plan(k kind, root, topic, group, name, title string, exists func(string) bool) step {
+	rel := k.relPath(topic, group, name)
 	abs := filepath.Join(root, filepath.FromSlash(rel))
 
 	return step{

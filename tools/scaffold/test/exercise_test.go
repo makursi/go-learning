@@ -17,7 +17,7 @@ const exerciseSkeleton = "// 题目：\n\npackage main\n\nfunc main() {\n}\n"
 func TestExerciseCreatesRunnableSkeleton(t *testing.T) {
 	root := fakeRepo(t)
 
-	stdout, stderr, code := runCLI(t, root, "exercise", "01-basics", "fruit-count")
+	stdout, stderr, code := runCLI(t, root, "exercise", "02-concurrency", "channel", "swap")
 
 	if code != 0 {
 		t.Fatalf("退出码 = %d，想要 %d；stderr = %q", code, 0, stderr)
@@ -26,7 +26,7 @@ func TestExerciseCreatesRunnableSkeleton(t *testing.T) {
 		t.Errorf("stderr 应为空，得到 %q", stderr)
 	}
 
-	rel := "src/homework/01-basics/01-fruit-count/main.go"
+	rel := "src/homework/02-concurrency/channel/01-swap/main.go"
 	if !strings.Contains(stdout, "create "+rel) {
 		t.Errorf("stdout 应报告 create %s，得到 %q", rel, stdout)
 	}
@@ -61,7 +61,7 @@ func TestExerciseCreatesRunnableSkeleton(t *testing.T) {
 		t.Errorf("题目注释应在 package 之前，实际在其后：\n%s", content)
 	}
 
-	entries, err := os.ReadDir(filepath.Join(root, "src", "homework", "01-basics", "01-fruit-count"))
+	entries, err := os.ReadDir(filepath.Join(root, "src", "homework", "02-concurrency", "channel", "01-swap"))
 	if err != nil {
 		t.Fatalf("读题目目录：%v", err)
 	}
@@ -74,19 +74,19 @@ func TestExerciseCreatesRunnableSkeleton(t *testing.T) {
 	}
 }
 
-func TestExerciseNumberingAppendsToTopic(t *testing.T) {
+func TestExerciseNumberingAppendsToHomework(t *testing.T) {
 	root := fakeRepo(t)
 
-	if _, stderr, code := runCLI(t, root, "exercise", "01-basics", "swap"); code != 0 {
+	if _, stderr, code := runCLI(t, root, "exercise", "02-concurrency", "channel", "swap"); code != 0 {
 		t.Fatalf("第一题生成失败，退出码 = %d；stderr = %q", code, stderr)
 	}
 
-	stdout, stderr, code := runCLI(t, root, "exercise", "01-basics", "maps")
+	stdout, stderr, code := runCLI(t, root, "exercise", "02-concurrency", "channel", "maps")
 	if code != 0 {
 		t.Fatalf("第二题生成失败，退出码 = %d；stderr = %q", code, stderr)
 	}
 
-	if want := "create src/homework/01-basics/02-maps/main.go"; !strings.Contains(stdout, want) {
+	if want := "create src/homework/02-concurrency/channel/02-maps/main.go"; !strings.Contains(stdout, want) {
 		t.Errorf("第二题应接着编号成 02，stdout = %q，想要含 %q", stdout, want)
 	}
 }
@@ -97,7 +97,7 @@ func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
 		args       []string
 		wantAbsent string
 	}{
-		{"题目不碰笔记区", []string{"exercise", "01-basics", "fruit-count"}, "src/notes"},
+		{"题目不碰笔记区", []string{"exercise", "02-concurrency", "channel", "swap"}, "src/notes"},
 		{"笔记不碰作业区", []string{"note", "01-basics", "maps"}, "src/homework"},
 	}
 
@@ -119,7 +119,7 @@ func TestEachKindTouchesOnlyItsOwnTree(t *testing.T) {
 func TestTitleFlagRejectedForKindsThatDoNotUseIt(t *testing.T) {
 	root := fakeRepo(t)
 
-	_, stderr, code := runCLI(t, root, "exercise", "--title", "演示", "01-basics", "hello")
+	_, stderr, code := runCLI(t, root, "exercise", "--title", "演示", "02-concurrency", "channel", "hello")
 
 	if code != 2 {
 		t.Fatalf("退出码 = %d，想要 %d", code, 2)

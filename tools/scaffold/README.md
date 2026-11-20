@@ -6,7 +6,7 @@
 
 ```sh
 go run ./tools/scaffold note     --title "映射（Maps）" 02-data-structures maps
-go run ./tools/scaffold exercise 02-data-structures swap
+go run ./tools/scaffold exercise 02-concurrency channel swap
 ```
 
 flag 必须写在位置参数之前——标准库 `flag` 在第一个位置参数处就停止解析，`note 02-data-structures maps --title x` 会把 `--title` 丢掉。
@@ -14,10 +14,11 @@ flag 必须写在位置参数之前——标准库 `flag` 在第一个位置参�
 | 种类 | 落点 | `--title` |
 | --- | --- | --- |
 | `note` | `src/notes/<topic>/<name>.md` | 有效，缺省用名字 |
-| `exercise` | `src/homework/<topic>/<NN-slug>/main.go` | 不支持 |
+| `exercise` | `src/homework/<topic>/<homework>/<NN-slug>/main.go` | 不支持 |
 
 - `<topic>` 必须带两位编号，形如 `03-functions`。编号写错或不写时，报错里会给出下一个可用编号。
-- `<slug>` 是英文小写 slug：字母、数字、单个连字符。题号 `NN` 由工具分配——扫描该主题目录下现有的 `NN-*` 取最大 +1，两位用尽时报错。
+- `<homework>` 是作业名，与同名笔记对齐（`src/notes/02-concurrency/channel.md` ↔ `src/homework/02-concurrency/channel/`），规则同小写 slug。
+- `<slug>` 是英文小写 slug：字母、数字、单个连字符。题号 `NN` 由工具分配——扫描该作业目录下现有的 `NN-*` 取最大 +1，两位用尽时报错。
 - 只建该种类用到的那棵树，不会顺手在另一棵树里造空目录。
 - 笔记只有一个一级标题和一个空行；`exercise` 生成 `// 题目：` 占位注释加一个空的 `package main`。题目目录不放 `README.md`：题面写成自己那份 `main.go` 顶部的 `// 题目：` 注释，完整讲解记在对应笔记里。
 - 一道题一个目录、一个 `package main`：可以单独 `go run`，题内的辅助函数与类型也不会和别的题撞名。没有主题级的调度文件。约定见 `AGENTS.md`。
