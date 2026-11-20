@@ -17,7 +17,7 @@ func addByPointer(c *Counter) {
 	c.Value += 1 // 指针接收者的字段访问会自动解引用，不必写 (*c).Value
 }
 
-func StructValueVsPointer() {
+func main() {
 	count := Counter{Value: 1}
 
 	addByPointer(&count)

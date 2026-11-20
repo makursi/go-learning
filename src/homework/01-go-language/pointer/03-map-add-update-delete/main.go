@@ -13,7 +13,7 @@ func removeSubject(scores map[string]int, subject string) {
 	delete(scores, subject)
 }
 
-func MapAddUpdateDelete() {
+func main() {
 	scores := map[string]int{
 		"语文": 90,
 		"数学": 85,

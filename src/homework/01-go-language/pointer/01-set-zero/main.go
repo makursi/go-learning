@@ -8,7 +8,7 @@ func setZero(n int) {
 	n = 0
 }
 
-func SetZero() {
+func main() {
 	num := 42
 	fmt.Println(num)
 

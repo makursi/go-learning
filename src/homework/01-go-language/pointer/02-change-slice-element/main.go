@@ -8,7 +8,7 @@ func firstToX(s []string) {
 	s[0] = "X"
 }
 
-func ChangeSliceElement() {
+func main() {
 	s := []string{"A", "B", "C"}
 
 	firstToX(s)
