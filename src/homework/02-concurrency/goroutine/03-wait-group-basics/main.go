@@ -16,7 +16,7 @@ func makeWaitGroupExample(sleepTime time.Duration, name string, wg *sync.WaitGro
 	fmt.Println("协程", name, "开始执行")
 }
 
-func WaitGroupBasics() {
+func main() {
 	var wg sync.WaitGroup
 
 	wg.Add(3)

@@ -19,7 +19,7 @@ func notifyExample(orders []string, wg *sync.WaitGroup) {
 	}
 }
 
-func ConcurrencyNotify() {
+func main() {
 	var wg sync.WaitGroup
 
 	orders := []string{

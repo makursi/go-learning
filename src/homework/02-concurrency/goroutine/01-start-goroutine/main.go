@@ -11,7 +11,7 @@ func hello(name string) {
 	fmt.Println("你好", name)
 }
 
-func StartGoroutine() {
+func main() {
 	go hello("choria")
 
 	// 先 go 再等：Sleep 放在 go 之前的话，主协程会在新协程有机会运行前就结束。

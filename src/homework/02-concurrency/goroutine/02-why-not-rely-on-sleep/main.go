@@ -16,7 +16,7 @@ func makeGoroutine(sleepTime time.Duration, name string) {
 	fmt.Println("协程", name, "开始执行")
 }
 
-func WhyNotRelyOnSleep() {
+func main() {
 	go makeGoroutine(50*time.Millisecond, "A")
 	go makeGoroutine(200*time.Millisecond, "B")
 	go makeGoroutine(100*time.Millisecond, "C")

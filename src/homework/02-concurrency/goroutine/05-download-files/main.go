@@ -17,7 +17,7 @@ func download(file string, wg *sync.WaitGroup) {
 	fmt.Println("已下载:", file)
 }
 
-func DownloadFiles() {
+func main() {
 	var wg sync.WaitGroup
 
 	files := []string{"a.txt", "b.txt", "c.txt"}
