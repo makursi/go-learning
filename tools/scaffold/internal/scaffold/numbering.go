@@ -36,7 +36,33 @@ func topicNumberHint(root string) (string, bool) {
 	return fmt.Sprintf("下一个可用编号是 %02d", maxNumber+1), true
 }
 
-// topicNumber 取主题名开头的两位编号；不是「两位数字 + 连字符」就返回 false。
+// nextExerciseNumber 给出主题目录下一个可用的两位题号。
+// 题号是目录内的追加顺序，所以取「现有最大 + 1」；目录读不出来时按「还没有题」
+// 处理——真正的失败会在建目录那一步带着路径报出来，这里不该先把它报成用法错误。
+func nextExerciseNumber(root, topic string) (string, error) {
+	entries, err := os.ReadDir(filepath.Join(root, "src", "homework", topic))
+	if err != nil {
+		return "01", nil
+	}
+
+	maxNumber := 0
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			continue
+		}
+		if number, ok := topicNumber(entry.Name()); ok && number > maxNumber {
+			maxNumber = number
+		}
+	}
+
+	if maxNumber >= 99 {
+		return "", fmt.Errorf("题号已用尽：%s 下已有 99，两位编号放不下更多题", topic)
+	}
+
+	return fmt.Sprintf("%02d", maxNumber+1), nil
+}
+
+// topicNumber 取名字开头的两位编号；不是「两位数字 + 连字符」就返回 false。
 func topicNumber(name string) (int, bool) {
 	if len(name) < 4 || name[2] != '-' {
 		return 0, false

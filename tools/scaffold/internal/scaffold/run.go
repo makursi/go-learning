@@ -34,7 +34,7 @@ func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 	}
 
 	if len(rest) != 2 {
-		fmt.Fprintf(stderr, "error: %s 需要 <topic> <name> 两个参数，拿到 %d 个；用法：%s\n", k.name, len(rest), k.usageLine())
+		fmt.Fprintf(stderr, "error: %s 需要 <topic> <%s> 两个参数，拿到 %d 个；用法：%s\n", k.name, k.argName(), len(rest), k.usageLine())
 
 		return exitUsage
 	}
@@ -58,6 +58,17 @@ func Run(args []string, cwd string, stdout, stderr io.Writer) int {
 		fmt.Fprintf(stderr, "error: %v\n", err)
 
 		return exitUsage
+	}
+
+	if k.numbered {
+		number, err := nextExerciseNumber(root, topic)
+		if err != nil {
+			fmt.Fprintf(stderr, "error: %v\n", err)
+
+			return exitUsage
+		}
+
+		name = number + "-" + name
 	}
 
 	title := opts.title

@@ -17,6 +17,10 @@ type kind struct {
 	content func(title string) string
 	// titled 表示这种种类接受 --title。
 	titled bool
+	// numbered 表示条目名带两位题号，编号由工具按主题目录的现状分配。
+	numbered bool
+	// argLabel 是第二个位置参数在用法提示里的名字，缺省叫 name。
+	argLabel string
 }
 
 // relPath 给出条目相对于仓库根的路径。
@@ -28,13 +32,22 @@ func (k kind) relPath(topic, name string) string {
 	return path.Join(k.root, topic, name+k.fileExt)
 }
 
+// argName 是第二个位置参数在提示里叫什么。
+func (k kind) argName() string {
+	if k.argLabel == "" {
+		return "name"
+	}
+
+	return k.argLabel
+}
+
 // usageLine 是这种种类在出错时给出的用法提示。
 func (k kind) usageLine() string {
 	if k.titled {
-		return "scaffold " + k.name + " [--dry-run] [--title <标题>] <topic> <name>"
+		return "scaffold " + k.name + " [--dry-run] [--title <标题>] <topic> <" + k.argName() + ">"
 	}
 
-	return "scaffold " + k.name + " [--dry-run] <topic> <name>"
+	return "scaffold " + k.name + " [--dry-run] <topic> <" + k.argName() + ">"
 }
 
 var kinds = []kind{
@@ -46,10 +59,12 @@ var kinds = []kind{
 		titled:  true,
 	},
 	{
-		name:     "homework",
+		name:     "exercise",
 		root:     "src/homework",
 		dirEntry: "main.go",
-		content:  goContent,
+		content:  exerciseContent,
+		numbered: true,
+		argLabel: "slug",
 	},
 }
 

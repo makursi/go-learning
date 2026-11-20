@@ -28,7 +28,7 @@ func TestSummaryReportsCreatedThenSkipped(t *testing.T) {
 func TestDryRunSummaryCountsThePlannedAction(t *testing.T) {
 	root := fakeRepo(t)
 
-	stdout, stderr, code := runCLI(t, root, "homework", "--dry-run", "01-basics", "fruit-count")
+	stdout, stderr, code := runCLI(t, root, "exercise", "--dry-run", "01-basics", "fruit-count")
 
 	if code != 0 {
 		t.Fatalf("退出码 = %d；stderr = %q", code, stderr)
