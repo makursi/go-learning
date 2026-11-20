@@ -1,5 +1,5 @@
 // 题目：无缓冲通道上先在 main 里发送、再起接收协程——运行即 deadlock（all goroutines are asleep）。
-// 故意不接进 main 调度；要观察死锁，把 main 里的调度临时改成 UnbufferedSendFirst() 再 go run。
+// 故意做成本来就会死锁的顺序：直接 go run，看到的 deadlock 就是本题要观察的现象。
 
 package main
 

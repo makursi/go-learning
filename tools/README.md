@@ -16,10 +16,10 @@ go run ./tools/scaffold note 03-functions closures
 go run ./tools/scaffold note --title "闭包（Closures）" 03-functions closures
 ```
 
-生成作业：
+生成一道题：
 
 ```sh
-go run ./tools/scaffold homework 03-functions fruit-count
+go run ./tools/scaffold exercise 02-concurrency channel swap
 ```
 
 先预览、再落盘：
