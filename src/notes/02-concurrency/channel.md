@@ -123,3 +123,138 @@ func handle(r *Request) {
 }
 ```
 
+### range 遍历通道
+
+`range` 子句可以遍历通道上陆续发送的值。规范里的语法：
+
+```
+RangeClause = [ ExpressionList "=" | IdentifierList ":=" ] "range" Expression .
+```
+
+规范对通道的规定只有一句：**产生的迭代值是通道上连续发送的值，直到通道被关闭**——通道是 `nil` 时，range 表达式永久阻塞。
+
+> For channels, the iteration values produced are the successive values sent on the channel until the channel is closed. If the channel is `nil`, the range expression blocks forever.
+
+这句话解释了 `range` 为什么「不给你 `ok`」：循环终止的唯一条件是「通道已关闭且已排空」。所以**关闭是发送方的责任**，发送方不 `close`，接收方的 `range` 就永远等下去。另外，`range` 对通道只允许一个迭代变量（数组、切片、map 才允许两个）。
+
+`for v := range ch` 与手写循环等价：
+
+```
+for {
+    v, ok := <-ch
+    if !ok {
+        break
+    }
+    // 使用 v
+}
+```
+
+例子：
+
+```go
+func main() {
+	ch := make(chan string, 2)
+	ch <- "go"
+	ch <- "home"
+	close(ch) // 少了这一句，下面的 range 会永久阻塞
+
+	for v := range ch {
+		fmt.Println(v)
+	}
+}
+```
+
+输出：
+
+```
+go
+home
+```
+
+### select 多路复用
+
+`select` 从一组发送、接收操作中挑一个继续执行。语法（规范）：
+
+```
+SelectStmt = "select" "{" { CommClause } "}" .
+CommClause = CommCase ":" StatementList .
+CommCase   = "case" ( SendStmt | RecvStmt ) | "default" .
+```
+
+执行过程规范分了几步，要点三条：
+
+1. 进入 `select` 时，所有 `case` 里的通道操作数按源码顺序各求值一次；接收语句左侧的赋值目标此时**不**求值。
+2. 有一个以上通信可以继续，就通过均匀伪随机选择挑一个；否则若有 `default` 就执行它；否则阻塞，直到至少一个通信可以继续。
+3. `nil` 通道上的通信永远不会继续，因此只含 `nil` 通道又没有 `default` 的 `select` 永久阻塞。
+
+> If one or more of the communications can proceed, a single one that can proceed is chosen via a uniform pseudo-random selection. Otherwise, if there is a default case, that case is chosen. If there is no default case, the "select" statement blocks until at least one of the communications can proceed.
+
+由这三条推出来的常用写法：
+
+- **同时就绪是随机的**：两个通道都有值可读时，别指望写在前面先执行、也别指望谁先发送，只能指望两者最终都会被执行。
+- **`default` 让 select 变成非阻塞**：立即返回，用来做「有就读、没有就跳过」。
+
+```go
+func main() {
+	ch := make(chan int, 1)
+
+	select {
+	case v := <-ch:
+		fmt.Println("读到", v)
+	default:
+		fmt.Println("通道为空，不等待")
+	}
+
+	ch <- 7
+
+	select {
+	case v := <-ch:
+		fmt.Println("读到", v)
+	default:
+		fmt.Println("通道为空，不等待")
+	}
+}
+```
+
+输出：
+
+```
+通道为空，不等待
+读到 7
+```
+
+- **置 `nil` 摘掉 case**：通道关闭后把它设成 `nil`，这个 `case` 就永远不就绪，这是「循环消费多个通道直到全部关完」的收尾写法；不置 `nil` 的话，关闭的通道每轮都返回零值，循环退不出来。
+
+```go
+for chA != nil || chB != nil {
+	select {
+	case v, ok := <-chA:
+		if !ok {
+			chA = nil // 摘掉，否则每轮都读到零值
+			continue
+		}
+		// 使用 v
+	}
+}
+```
+
+- **超时**：`case <-time.After(d)` 在 `d` 之后让这个 `case` 就绪，和结果通道赛跑就实现了超时；注意 `time.After` 每次调用都新建一个定时器，循环里高频使用要换成 `time.NewTimer` 并复用。
+
+```go
+func wait(ch <-chan string, timeout time.Duration) (string, bool) {
+	select {
+	case v := <-ch:
+		return v, true
+	case <-time.After(timeout):
+		return "", false
+	}
+}
+```
+
+### 常见注意点
+
+- 关闭是发送方的动作：对只接收通道 `close` 是编译错误，重复 `close` 与关闭 `nil` 通道都是运行时 panic。
+- 关闭之后接收不会阻塞：先收完缓冲区里剩下的值，再返回元素类型的零值且 `ok` 为 `false`；关闭之后继续发送则 panic。
+- `range` 与 `for` + `select` 的退出都依赖 `close`（或额外的停止通道），发送方漏了关闭，接收方就永久阻塞。
+- 多个 `case` 同时就绪时选哪个是随机的，不要依赖书写顺序。
+
